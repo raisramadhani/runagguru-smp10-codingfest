@@ -15,6 +15,8 @@ Karena Anda sudah selesai dengan `Screen1`, kita perlu membuat 3 Screen baru ses
 
 _(Catatan: Pastikan penulisan nama Screen persis seperti di atas tanpa spasi, karena huruf besar/kecil sangat berpengaruh di App Inventor)._
 
+> **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
+
 ---
 
 ## TAHAP 2: Desain & Blocks - HalamanUtama
@@ -80,6 +82,8 @@ Sekarang kita buat agar gambar-gambar tersebut berfungsi memindahkan layar saat 
 - Tarik blok kuning: `when Tombol_TotalTabungan.Click do`.
 - Klik kategori **Control**, tarik blok `open another screen screenName` dan pasangkan ke dalam blok kuning.
 - Klik kategori **Text**, tarik blok `" "`, pasangkan dan ketik: `TotalTabungan`.
+
+> **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
 
 ---
 
@@ -148,6 +152,10 @@ Pindah ke tampilan **Blocks**. Kita butuh beberapa logika di sini.
    - Di panel kiri, klik `Notifikasi_Pesan`, tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`. Pasangkan di posisi paling bawah (di dalam blok kuning `Tombol_Simpan.Click`).
    - Klik kategori **Text**, tarik blok teks pink `" "` dan pasangkan ke bagian `notice`. Ketik di dalamnya: `Tabungan Berhasil di Masukan`.
 
+> **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
+
+---
+
 ## TAHAP 4: Desain & Blocks - TotalTabungan
 
 Ganti screen aktif ke **TotalTabungan** melalui dropdown Screen di atas.
@@ -188,3 +196,12 @@ Pindah ke tampilan **Blocks**. Layar ini akan otomatis memanggil data dari TinyD
    - Isi `valueIfTagNotThere` dengan blok biru muda dari List: `create empty list`.
 6. Klik `Tombol_Kembali`, tarik blok kuning `when Tombol_Kembali.Click do`.
 7. Dari kategori **Control**, tarik blok `open another screen screenName`. Isi dengan teks pink `"HalamanUtama"`.
+
+> **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
+
+---
+
+## CATATAN AKHIR
+
+1. **Jangan lupa di save** project Anda di MIT App Inventor.
+2. **Ini Hanya prototype saja** alias aplikasi mu belum selesai. Lanjutkan desain secantik mungkin pada masing-masing halaman. Hati-hati saat mendesain agar fitur (Blocks) yang sudah ada tidak error.
