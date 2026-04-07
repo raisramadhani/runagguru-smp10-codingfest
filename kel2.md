@@ -87,6 +87,9 @@ Sekarang kita buat agar gambar-gambar tersebut berfungsi memindahkan layar saat 
 
 Ganti screen aktif ke **TambahTabungan** melalui dropdown Screen di atas.
 
+**Preview Desain:**
+![Preview Desain Tambah Tabungan ](kel2-3.png)
+
 ### A. Desain (Designer)
 
 1. **Input Nominal:** Dari panel **Palette** > **User Interface**, tarik komponen **TextBox** ke layar.
@@ -101,10 +104,15 @@ Ganti screen aktif ke **TambahTabungan** melalui dropdown Screen di atas.
    - Klik **Rename**, ubah menjadi: `Tombol_Simpan`.
 4. **Database:** Dari **Palette**, scroll ke bawah, klik kategori **Storage**. Tarik **TinyDB** ke layar (dia akan muncul di bawah layar sebagai _Non-visible component_).
    - Klik **Rename**, ubah menjadi: `Database_Tabungan`.
+5. **Pesan Notifikasi:** Dari panel **Palette** > **User Interface**, tarik komponen **Notifier** ke layar (dia juga akan muncul di bawah layar sebagai _Non-visible component_).
+   - Klik **Rename**, ubah menjadi: `Notifikasi_Pesan`.
 
 ### B. Kode (Blocks)
 
 Pindah ke tampilan **Blocks**. Kita butuh beberapa logika di sini.
+
+**Preview Blocks:**
+![Preview Blocks Tambah Tabungan](kel2-3.1.png)
 
 **Bagian 1: Menampilkan Tanggal yang Dipilih**
 
@@ -136,14 +144,16 @@ Pindah ke tampilan **Blocks**. Kita butuh beberapa logika di sini.
    - Di bagian `list`: isi dengan blok merah tarik dari Variables `get global RiwayatSementara`.
    - Di bagian `item`: tarik blok pink `join` (dengan 3 lubang). Isi lubang 1 dengan `Pilih_Tanggal.Text`, lubang 2 dengan teks pink `" - Rp "`, lubang 3 dengan `Input_Nominal.Text`.
    - Terakhir, simpan list ke database. Tarik lagi blok ungu `call Database_Tabungan.StoreValue`. Isi `tag` dengan teks pink `"DataRiwayat"`. Isi `valueToStore` dengan blok merah `get global RiwayatSementara`.
-4. **Notifikasi/Pindah Layar:**
-   - Klik kategori **Control**, tarik blok `open another screen screenName` pasang di paling bawah. Isi dengan teks pink `"HalamanUtama"`.
-
----
+4. **Menampilkan Notifikasi Sukses:**
+   - Di panel kiri, klik `Notifikasi_Pesan`, tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`. Pasangkan di posisi paling bawah (di dalam blok kuning `Tombol_Simpan.Click`).
+   - Klik kategori **Text**, tarik blok teks pink `" "` dan pasangkan ke bagian `notice`. Ketik di dalamnya: `Tabungan Berhasil di Masukan`.
 
 ## TAHAP 4: Desain & Blocks - TotalTabungan
 
 Ganti screen aktif ke **TotalTabungan** melalui dropdown Screen di atas.
+
+**Preview Desain:**
+![Preview Desain Total Tabungan ](kel2-4.png)
 
 ### A. Desain (Designer)
 
@@ -161,6 +171,9 @@ Ganti screen aktif ke **TotalTabungan** melalui dropdown Screen di atas.
    - Klik **Rename**, ubah menjadi: `Tombol_Kembali`.
 
 ### B. Kode (Blocks)
+
+**Preview Blocks:**
+![Preview Blocks Total Tabungan](kel2-4.1.png)
 
 Pindah ke tampilan **Blocks**. Layar ini akan otomatis memanggil data dari TinyDB saat layar dibuka.
 
