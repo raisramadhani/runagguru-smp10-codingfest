@@ -21,6 +21,9 @@ _(Catatan: Pastikan penulisan nama Screen persis seperti di atas tanpa spasi, ka
 
 Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **HalamanUtama**. Jika Anda sudah menyusun layout (menggunakan Horizontal/Vertical Arrangement) seperti pada gambar, kita akan fokus mengatur komponen gambarnya.
 
+**Preview Desain:**
+![Preview Desain Halaman Utama](kel2-2.png)
+
 ### A. Desain (Designer)
 
 1. **Mengatur Logo Aplikasi:**
@@ -52,6 +55,9 @@ Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **Halam
 ### B. Kode (Blocks)
 
 Sekarang kita buat agar gambar-gambar tersebut berfungsi memindahkan layar saat ditekan. Pindah ke tampilan Blocks (klik tombol **Blocks** di pojok kanan atas).
+
+**Preview Blocks:**
+![Preview Blocks Halaman Utama](kel2-2.1.png)
 
 **1. Logika Logo Aplikasi & Home (Kembali ke Halaman Utama)**
 
