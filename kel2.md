@@ -1,4 +1,4 @@
-# Tutorial Membuat Aplikasi TabQu (TabunganQu) dengan MIT App Inventor
+# Tutorial Membuat Aplikasi KELOMPOK 2 dengan MIT App Inventor
 
 Pastikan Anda sudah login ke MIT App Inventor dan berada di tampilan **Designer** (tombol di pojok kanan atas).
 
@@ -6,7 +6,7 @@ Pastikan Anda sudah login ke MIT App Inventor dan berada di tampilan **Designer*
 
 ## TAHAP 1: Membuat Screen Baru
 
-Karena Anda sudah selesai dengan `Screen1`, kita perlu membuat 3 Screen baru sesuai konsep Anda.
+Karena Anda sudah selesai dengan `Screen1` yang berisi login, kita perlu melanjutkannya untuk membuat 3 Screen baru sesuai konsep Anda.
 
 1. Di bagian atas layar, klik tombol **Add Screen**.
 2. Ketik nama: `HalamanUtama` lalu klik OK.
