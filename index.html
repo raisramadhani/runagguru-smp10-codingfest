@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tutorial App Inventor</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown.min.css">
+
+    <style>
+        /* Styling Dasar Web */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: #f6f8fa;
+        }
+
+        /* Styling Menu Navigasi */
+        .nav-bar {
+            background-color: #24292f;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-bar button {
+            margin: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            background-color: #f6f8fa;
+            color: #24292f;
+            border: 1px solid rgba(27, 31, 36, 0.15);
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .nav-bar button:hover {
+            background-color: #e2e6ea;
+        }
+
+        /* Styling Wadah Konten Markdown */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 45px;
+            background-color: #ffffff;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+                margin: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="nav-bar">
+        <button onclick="loadMarkdown('kel1.md')">Tutorial Kelompok 1</button>
+        <button onclick="loadMarkdown('kel2.md')">Tutorial Kelompok 2</button>
+        <button onclick="loadMarkdown('kel3.md')">Tutorial Kelompok 3</button>
+        <button onclick="loadMarkdown('kel4.md')">Tutorial Kelompok 4</button>
+    </div>
+
+    <div class="markdown-body" id="content">
+        <h2 style="text-align: center; margin-top: 20px;">Memuat tutorial...</h2>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        // Fungsi untuk memuat dan merender file MD
+        function loadMarkdown(filename) {
+            // Tampilkan indikator loading
+            document.getElementById('content').innerHTML = `<h2 style="text-align: center; color: #57606a;">Memuat ${filename}...</h2>`;
+
+            // Ambil file MD
+            fetch(filename)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('File tidak ditemukan');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    // Ubah MD menjadi HTML dan masukkan ke dalam div #content
+                    document.getElementById('content').innerHTML = marked.parse(text);
+                    // Scroll kembali ke atas setiap kali ganti menu
+                    window.scrollTo(0, 0);
+                })
+                .catch(error => {
+                    document.getElementById('content').innerHTML = `
+            <h2 style="color: #cf222e;">Error: Gagal memuat ${filename}</h2>
+            <p>Pastikan file <b>${filename}</b> sudah di-commit dan berada di folder yang sama dengan file index.html di GitHub Anda.</p>
+          `;
+                    console.error(error);
+                });
+        }
+
+        // Otomatis memuat kel1.md saat web pertama kali dibuka
+        loadMarkdown('kel1.md');
+    </script>
+</body>
+
+</html>
