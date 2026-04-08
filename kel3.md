@@ -23,20 +23,27 @@ _(Catatan: Pastikan penulisan nama Screen persis seperti di atas tanpa spasi)._
 
 ## TAHAP 2: Desain & Blocks - HalamanUtama
 
-Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **HalamanUtama**. Di sini kita hanya akan membuat daftar menu berbentuk tombol.
+Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **HalamanUtama**. Di sini kita akan membuat Header dengan Logo terlebih dahulu, lalu membuat daftar menu berbentuk tombol.
 
 **Preview Desain:**
 ![Preview Desain Halaman Utama](kel3-2.png)
 
 ### A. Desain (Designer)
 
-1. **Membuat Menu Top Up:**
+1. **Membuat Header & Logo (Untuk di-copy nanti):**
+   - Dari panel **Palette** > **Layout**, tarik **HorizontalArrangement** ke layar bagian paling atas.
+   - Dari **Palette** > **User Interface**, tarik komponen **Image** ke dalam kotak HorizontalArrangement tadi.
+   - Di panel **Components**, klik tombol **Rename** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
+   - Di panel **Properties**, cari kotak centang bernama **Clickable** dan **wajib dicentang** (agar logo bisa ditekan).
+   - _(Opsional)_ Tarik **Label** di sebelah logo jika ingin memberi teks judul aplikasi.
+
+2. **Membuat Menu Top Up:**
    - Lihat ke panel sebelah kiri bernama **Palette**. Di bawah kategori **User Interface**, cari komponen **Button**.
-   - Tarik (drag) **Button** ke layar HP (Viewer).
+   - Tarik (drag) **Button** ke layar HP (Viewer) di bawah header.
    - Di panel **Properties** (paling kanan), ubah **Text** menjadi: `Menu Top Up Saldo`.
    - Di panel **Components** (tengah-kanan), klik tombol **Rename**, ubah namanya menjadi: `Tombol_MenuTopUp`.
 
-2. **Membuat Menu Target Impian:**
+3. **Membuat Menu Target Impian:**
    - Tarik lagi komponen **Button** ke bawah tombol pertama.
    - Di panel **Properties**, ubah **Text** menjadi: `Menu Target Impian`.
    - Di panel **Components**, klik **Rename**, ubah namanya menjadi: `Tombol_MenuTarget`.
@@ -45,19 +52,24 @@ Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **Halam
 
 ### B. Kode (Blocks)
 
-Sekarang kita buat agar tombol-tombol tersebut berfungsi memindahkan layar saat ditekan. Pindah ke tampilan **Blocks** (pojok kanan atas).
+Sekarang kita buat agar logo dan tombol-tombol tersebut berfungsi memindahkan layar saat ditekan. Pindah ke tampilan **Blocks** (pojok kanan atas).
 
 **Preview Blocks:**
 ![Preview Blocks Halaman Utama](kel3-2.1.png)
 
-**1. Logika Menu Top Up**
+**1. Logika Logo (Kembali ke Home):**
+
+- Klik `Logo_Aplikasi` di panel kiri, tarik `when Logo_Aplikasi.Click do`.
+- Dari kategori **Control**, tarik `open another screen screenName`. Isi dengan teks pink `"HalamanUtama"`. _(Blok ini juga akan ikut tercopy ke halaman lain nanti)._
+
+**2. Logika Menu Top Up**
 
 - Di panel **Blocks** sebelah kiri, klik `Tombol_MenuTopUp`.
 - Tarik blok kuning paling atas: `when Tombol_MenuTopUp.Click do`.
 - Klik kategori **Control** (warna cokelat/oranye). Scroll ke bawah, tarik blok `open another screen screenName`. Pasangkan ke dalam blok kuning tadi.
 - Klik kategori **Text** (warna pink), tarik blok string kosong `" "` (paling atas) dan pasangkan ke sebelah `screenName`. Ketik di dalamnya: `TopUp`.
 
-**2. Logika Menu Target Impian**
+**3. Logika Menu Target Impian**
 
 - Di panel kiri, klik `Tombol_MenuTarget`.
 - Tarik blok kuning: `when Tombol_MenuTarget.Click do`.
@@ -77,33 +89,35 @@ Ganti screen aktif ke **TopUp** melalui dropdown Screen di atas. Di halaman ini 
 
 ### A. Desain (Designer)
 
-1. **Pilih Kantong (Spinner):** Dari **Palette** > **User Interface**, tarik komponen **Spinner** ke layar.
+1. **Copy-Paste Header:**
+   - Ganti screen kembali ke `HalamanUtama` sebentar.
+   - Klik komponen `HorizontalArrangement` (Header) yang berisi Logo Anda.
+   - Tekan tombol **Ctrl + C** (Copy) di keyboard Anda.
+   - Ganti screen ke `TopUp`. Tekan tombol **Ctrl + V** (Paste). Header dan Logo akan otomatis muncul beserta blok logikanya!
+2. **Pilih Kantong (Spinner):** Dari **Palette** > **User Interface**, tarik komponen **Spinner** ke layar.
    - Di **Properties**, cari **ElementsFromString** lalu ketik teks ini persis (tanpa spasi setelah koma): `Kantong_1,Kantong_2,Kantong_3`
    - Klik **Rename**, ubah menjadi: `Pilih_Kantong`.
-2. **Input Nominal:** Dari **Palette** > **User Interface**, tarik komponen **TextBox**.
+3. **Input Nominal:** Dari **Palette** > **User Interface**, tarik komponen **TextBox**.
    - Di **Properties**, centang kotak **NumbersOnly**.
    - Ubah **Hint** menjadi: `Masukkan Nominal Top Up`.
    - Klik **Rename**, ubah menjadi: `Input_Nominal`.
-3. **Info Admin:** Dari **Palette** > **User Interface**, tarik **Label**.
+4. **Info Admin:** Dari **Palette** > **User Interface**, tarik **Label**.
    - Di **Properties**, ubah Text: `Biaya Admin: Rp 2.000` (agar user tahu saldonya akan terpotong 2000).
-4. **Tombol Top Up:** Dari **Palette** > **User Interface**, tarik komponen **Button**.
+5. **Tombol Top Up:** Dari **Palette** > **User Interface**, tarik komponen **Button**.
    - Di **Properties**, ubah **Text** menjadi: `Top Up Sekarang`.
    - Klik **Rename**, ubah menjadi: `Tombol_SimpanTopUp`.
-5. **Tombol Kembali:** Tarik lagi **Button** ke bawah.
-   - Di **Properties**, ubah **Text** menjadi: `Kembali`.
-   - Klik **Rename**, ubah menjadi: `Tombol_Kembali`.
 6. **Database & Notifikasi:**
    - Dari **Palette** > **Storage**, tarik **TinyDB**. (Klik **Rename** jadi `Database_Aplikasi`).
    - Dari **Palette** > **User Interface**, tarik **Notifier**. (Klik **Rename** jadi `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 
-Pindah ke tampilan **Blocks**.
+Pindah ke tampilan **Blocks**. _(Catatan: Blok untuk Logo agar bisa kembali ke Halaman Utama sudah otomatis ada berkat proses copy-paste)._
 
 **Preview Blocks:**
 ![Preview Blocks Top Up](kel3-3.1.png)
 
-**Bagian 1: Menyimpan Top Up dan Potong Admin**
+**Menyimpan Top Up dan Potong Admin**
 
 1. Klik `Tombol_SimpanTopUp`, tarik blok kuning `when Tombol_SimpanTopUp.Click do`.
 2. Klik `Database_Aplikasi`, tarik blok ungu `call Database_Aplikasi.StoreValue`. Masukkan ke blok kuning.
@@ -116,11 +130,6 @@ Pindah ke tampilan **Blocks**.
    - Di lubang kedua blok `-`: tarik angka `0` dari kategori Math, ubah angkanya jadi `2000`.
 5. **Notifikasi Sukses:** Di panel kiri, klik `Notifikasi_Pesan`, tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`. Pasang di bawah StoreValue (di dalam blok kuning).
    - Isi `notice` dengan blok teks pink `" "` dan ketik: `Top Up Berhasil! (Dipotong Admin 2000)`.
-
-**Bagian 2: Tombol Kembali**
-
-1. Klik `Tombol_Kembali`, tarik blok kuning `when Tombol_Kembali.Click do`.
-2. Dari kategori **Control**, tarik blok `open another screen screenName` dan pasangkan teks pink `"HalamanUtama"`.
 
 > **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
 
@@ -135,23 +144,23 @@ Ganti screen aktif ke **TambahTarget** melalui dropdown Screen di atas.
 
 ### A. Desain (Designer)
 
-1. **Input Nama Barang:** Tarik **TextBox**. Ubah Hint: `Nama Barang (Contoh: Sepatu)`. Rename: `Input_NamaBarang`.
-2. **Input URL Link:** Tarik **TextBox**. Ubah Hint: `URL / Link Toko`. Rename: `Input_URL`.
-3. **Input Harga:** Tarik **TextBox**. Centang **NumbersOnly**. Ubah Hint: `Harga Barang`. Rename: `Input_Harga`.
-4. **Tombol Simpan:** Tarik **Button**. Ubah Text: `Simpan Target Impian`. Rename: `Tombol_SimpanTarget`.
-5. **Tombol Kembali:** Tarik **Button**. Ubah Text: `Kembali`. Rename: `Tombol_Kembali`.
+1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul di posisi paling atas layar ini.
+2. **Input Nama Barang:** Tarik **TextBox**. Ubah Hint: `Nama Barang (Contoh: Sepatu)`. Rename: `Input_NamaBarang`.
+3. **Input URL Link:** Tarik **TextBox**. Ubah Hint: `URL / Link Toko`. Rename: `Input_URL`.
+4. **Input Harga:** Tarik **TextBox**. Centang **NumbersOnly**. Ubah Hint: `Harga Barang`. Rename: `Input_Harga`.
+5. **Tombol Simpan:** Tarik **Button**. Ubah Text: `Simpan Target Impian`. Rename: `Tombol_SimpanTarget`.
 6. **Database & Notifikasi:**
    - Tarik **TinyDB** dari Storage. (Rename jadi `Database_Aplikasi`).
    - Tarik **Notifier** dari User Interface. (Rename jadi `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 
-Pindah ke tampilan **Blocks**.
+Pindah ke tampilan **Blocks**. _(Blok kembali via Logo sudah ada otomatis)._
 
 **Preview Blocks:**
 ![Preview Blocks Tambah Target](kel3-4.1.png)
 
-**Bagian 1: Menyimpan List Target Impian**
+**Menyimpan List Target Impian**
 
 1. Kita buat variabel List. Di kategori **Variables** (oranye tua), tarik blok `initialize global name to`. Ganti `name` jadi `DaftarTarget`. Isi pasangannya dengan blok biru muda dari Lists: `create empty list`.
 2. Klik `Tombol_SimpanTarget`, tarik blok kuning `when Tombol_SimpanTarget.Click do`.
@@ -167,11 +176,6 @@ Pindah ke tampilan **Blocks**.
    - Isi lubang 5: `Input_Harga.Text`
 6. Simpan list ke database. Tarik lagi blok ungu `call Database_Aplikasi.StoreValue`. Isi `tag` dengan teks pink `"DataTarget"`. Isi `valueToStore` dengan blok merah `get global DaftarTarget`.
 7. **Notifikasi:** Tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`. Pasang di paling bawah dalam blok kuning. Isi teks pink `" "` dengan: `Target Impian Berhasil Disimpan!`.
-
-**Bagian 2: Tombol Kembali**
-
-1. Klik `Tombol_Kembali`, tarik blok kuning `when Tombol_Kembali.Click do`.
-2. Dari kategori **Control**, tarik blok `open another screen screenName` dan pasangkan teks pink `"HalamanUtama"`.
 
 > **PENTING:** Silakan coba Run program, untuk memeriksa aplikasi apakah sudah benar tanpa error belum. Apabila ada error jangan lanjut ke tahap berikutnya.
 
