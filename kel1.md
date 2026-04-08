@@ -28,6 +28,9 @@ Pastikan screen aktif di bagian atas adalah **HalamanUtama**. Di sini kita akan 
 
 ### A. Desain (Designer)
 
+**Preview Desain:**
+![Preview Desain Halaman Utama](kel1-2.png)
+
 1. **Membuat Header & Logo (Untuk di-copy nanti):**
    - Dari panel **Palette** > **Layout**, tarik **HorizontalArrangement** ke layar bagian paling atas.
    - Dari **Palette** > **User Interface**, tarik komponen **Image** ke dalam kotak HorizontalArrangement tadi.
@@ -40,6 +43,9 @@ Pastikan screen aktif di bagian atas adalah **HalamanUtama**. Di sini kita akan 
 4. **Membuat Tombol 3 (Pemasukan & Pengeluaran):** - Tarik **Button** lagi. Ubah **Text** menjadi: `Catat Pemasukan/Pengeluaran`. Klik **Rename** menjadi: `Tombol_MenuInput`.
 
 ### B. Kode (Blocks)
+
+**Preview Blocks:**
+![Preview Blocks Halaman Utama](kel1-2.1.png)
 
 Pindah ke tampilan **Blocks**.
 
@@ -57,6 +63,9 @@ Pindah ke tampilan **Blocks**.
 Ganti screen aktif ke **TipsTrik**. Di sini kita akan membuat daftar list yang bisa diklik untuk membaca deskripsi tips yang berbeda-beda.
 
 ### A. Desain (Designer)
+
+**Preview Desain:**
+![Preview Desain TipsTrik](kel2-3.png)
 
 1. **Copy-Paste Header:**
    - Ganti screen kembali ke `HalamanUtama` sebentar.
@@ -76,6 +85,9 @@ Ganti screen aktif ke **TipsTrik**. Di sini kita akan membuat daftar list yang b
    - Di panel Properties, ubah teks bawaannya menjadi: `Silakan klik salah satu judul tips di atas untuk membaca detailnya.`
 
 ### B. Kode (Blocks)
+
+**Preview Blocks:**
+![Preview Blocks TipsTrik](kel1-3.1.png)
 
 Pindah ke tampilan **Blocks**. Kita akan membuat dua buah _List_ (satu untuk Judul, satu untuk Deskripsi), lalu menghubungkannya.
 
