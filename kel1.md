@@ -54,24 +54,57 @@ Pindah ke tampilan **Blocks**.
 
 ## TAHAP 3: Desain & Blocks - TipsTrik
 
-Ganti screen aktif ke **TipsTrik**.
+Ganti screen aktif ke **TipsTrik**. Di sini kita akan membuat daftar list yang bisa diklik untuk membaca deskripsi tips yang berbeda-beda.
 
 ### A. Desain (Designer)
 
-1. **Copy-Paste Header:** - Ganti screen kembali ke `HalamanUtama` sebentar.
+1. **Copy-Paste Header:**
+   - Ganti screen kembali ke `HalamanUtama` sebentar.
    - Klik komponen `HorizontalArrangement` (Header) yang berisi Logo Anda.
    - Tekan tombol **Ctrl + C** (Copy) di keyboard Anda.
    - Ganti screen ke `TipsTrik`. Tekan tombol **Ctrl + V** (Paste). Header dan Logo akan otomatis muncul beserta blok logikanya!
-2. **Membuat Wadah Tips:**
-   - Dari **Palette** > **Layout**, tarik **ScrollVerticalArrangement** ke layar di bawah header. Di Properties, set **Height** dan **Width** menjadi `Fill Parent`.
-3. **Memasukkan Teks Tips:**
+2. **Membuat Daftar Judul:**
+   - Dari **Palette** > **User Interface**, tarik komponen **ListView** ke layar di bawah header.
+   - Di panel **Properties**, ubah **Height** menjadi `30 Percent` (agar tidak memakan seluruh layar).
+   - Klik **Rename** menjadi: `Daftar_TipsTrik`.
+3. **Membuat Wadah Deskripsi:**
+   - Dari **Palette** > **Layout**, tarik **ScrollVerticalArrangement** ke bawah ListView tadi.
+   - Di Properties, set **Height** dan **Width** menjadi `Fill Parent`.
+4. **Menyiapkan Teks Deskripsi:**
    - Di dalam kotak scroll tersebut, tarik sebuah **Label**.
-   - Di Properties, cari **Text** dan masukkan semua teks tips menabung Anda di sana.
-   - Rename menjadi: `Teks_Tips`.
+   - Klik **Rename** menjadi: `Teks_Deskripsi`.
+   - Di panel Properties, ubah teks bawaannya menjadi: `Silakan klik salah satu judul tips di atas untuk membaca detailnya.`
 
 ### B. Kode (Blocks)
 
-Pindah ke tampilan **Blocks**. Anda tidak perlu menambahkan blok apapun di layar ini karena teks bersifat statis, dan blok untuk `Logo_Aplikasi` (kembali ke Halaman Utama) sudah otomatis terbawa dari hasil _copy-paste_ tadi.
+Pindah ke tampilan **Blocks**. Kita akan membuat dua buah _List_ (satu untuk Judul, satu untuk Deskripsi), lalu menghubungkannya.
+
+**Bagian 1: Membuat Data Judul dan Deskripsi**
+
+1. Di kategori **Variables** (oranye tua), tarik blok `initialize global name to`. Ganti `name` jadi `DataJudul`.
+   - Pasangkan dengan blok biru muda dari kategori **Lists**: `make a list`.
+   - Klik ikon gir biru, tambahkan 1 item lagi agar memiliki 3 lubang. Isi dengan teks pink `" "`, lalu ketik 3 judul berbeda. Contoh: `"1. Konsisten Menabung"`, `"2. Bawa Bekal"`, `"3. Tabungan Receh"`.
+2. Tarik lagi blok `initialize global name to`. Ganti `name` jadi `DataDeskripsi`.
+   - Pasangkan dengan blok `make a list` (buat 3 lubang lagi).
+   - Isi dengan teks pink `" "` berisi deskripsi panjang sesuai urutan judul di atas. _(Pastikan jumlah judul dan deskripsi sama banyak)_.
+
+**Bagian 2: Menampilkan Judul saat Layar Dibuka**
+
+1. Di panel kiri, klik **TipsTrik**, tarik blok kuning: `when TipsTrik.Initialize do`.
+2. Klik `Daftar_TipsTrik`, tarik blok hijau muda: `set Daftar_TipsTrik.Elements to` dan masukkan ke blok kuning.
+3. Dari kategori **Variables**, tarik blok merah `get`, pilih `global DataJudul` dan pasangkan ke blok hijau tadi.
+
+**Bagian 3: Menampilkan Deskripsi saat Judul Diklik**
+
+1. Klik `Daftar_TipsTrik`, tarik blok kuning: `when Daftar_TipsTrik.AfterPicking do`.
+2. Klik `Teks_Deskripsi`, tarik blok hijau muda: `set Teks_Deskripsi.Text to`. Masukkan ke dalam blok kuning tadi.
+3. Kita akan menggabungkan Judul dan Deskripsinya. Dari kategori **Text**, tarik blok `join`. Buat agar punya 3 lubang (pakai ikon gir biru).
+4. Isi ke-3 lubang blok `join` secara berurutan:
+   - **Lubang 1:** Klik `Daftar_TipsTrik`, tarik blok hijau tua `Daftar_TipsTrik.Selection` (Ini akan memunculkan judul yang baru saja diklik).
+   - **Lubang 2:** Tarik blok teks pink `" "`, ketik `\n\n` _(untuk membuat 2 baris baru/Enter ke bawah)_.
+   - **Lubang 3:** Dari kategori **Lists**, tarik blok biru muda `select list item list index`.
+     - Di bagian `list`: isi dengan blok orange `get global DataDeskripsi`.
+     - Di bagian `index`: klik `Daftar_TipsTrik`, tarik blok hijau tua `Daftar_TipsTrik.SelectionIndex`. _(Ini berfungsi agar deskripsi yang dipanggil urutannya cocok dengan judul yang diklik)._
 
 ---
 
