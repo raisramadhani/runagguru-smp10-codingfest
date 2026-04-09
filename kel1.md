@@ -118,67 +118,156 @@ Pindah ke tampilan **Blocks**. Kita akan membuat dua buah _List_ (satu untuk Jud
      - Di bagian `list`: isi dengan blok orange `get global DataDeskripsi`.
      - Di bagian `index`: klik `Daftar_TipsTrik`, tarik blok hijau tua `Daftar_TipsTrik.SelectionIndex`. _(Ini berfungsi agar deskripsi yang dipanggil urutannya cocok dengan judul yang diklik)._
 
+## CATATAN
+
+1. **Tips/Trik** Tidak boleh sama dengan contoh.
+
 ---
 
-## TAHAP 4: Desain & Blocks - ProgresTabungan
+## TAHAP 3.5: Revisi Halaman Utama & Tambah Screen Baru
 
-Ganti screen aktif ke **ProgresTabungan**.
+Karena kita memutuskan untuk memisah halaman Pemasukan dan Pengeluaran, kita perlu membuat layarnya dan menyesuaikan tombol di Halaman Utama. _(Catatan: Screen `InputKeuangan` yang lama bisa diabaikan atau dihapus saja)._
+
+1. **Membuat Screen Baru:**
+   - Di bagian atas layar, klik tombol **Add Screen**. Ketik nama: `Pemasukan` lalu klik OK.
+   - Ulangi, klik **Add Screen**. Ketik nama: `Pengeluaran` lalu klik OK.
+2. **Revisi Tombol di Halaman Utama:**
+   - Ganti screen aktif ke **HalamanUtama**.
+   - Di panel Components, klik `Tombol_MenuInput`. Klik **Rename**, ubah namanya menjadi `Tombol_MenuPemasukan`. Di panel Properties, ubah **Text** menjadi: `Input Pemasukan`.
+   - Dari panel **Palette**, tarik satu **Button** lagi ke bawah tombol Pemasukan. Ubah **Text** menjadi: `Input Pengeluaran`. Klik **Rename** menjadi: `Tombol_MenuPengeluaran`.
+3. **Revisi Blocks Halaman Utama:**
+   - Pindah ke tampilan **Blocks**.
+   - Cari blok kuning `when Tombol_MenuPemasukan.Click`. Ubah teks pink di dalamnya yang tadinya `"InputKeuangan"` menjadi `"Pemasukan"`.
+   - Di panel kiri, klik `Tombol_MenuPengeluaran`. Tarik blok kuning `when Tombol_MenuPengeluaran.Click do`. Tarik blok `open another screen screenName` dan isi dengan teks pink `"Pengeluaran"`.
+
+---
+
+## TAHAP 4: Desain & Blocks - Pemasukan
+
+Ganti screen aktif ke **Pemasukan**. Di sini kita membuat form input uang masuk beserta riwayat transaksinya.
 
 ### A. Desain (Designer)
 
-1. **Paste Header:** Langsung tekan tombol **Ctrl + V** (Paste) di keyboard Anda untuk memunculkan Header dan Logo kembali ke layar ini.
-2. **Saldo Otomatis:** Tarik **Label**. Ubah Text: `Saldo Saat Ini: Rp 0`. Perbesar font dan centang FontBold. Rename Component: `Teks_SaldoOtomatis`.
-3. **Wadah Input Target (VerticalArrangement):** Rename Component menjadi `Wadah_Input`. Di dalamnya tarik 3 **TextBox**:
-   - TextBox 1 (Nama Barang) -> Rename Component: `Input_NamaBarang`.
-   - TextBox 2 (Nominal Target) -> Rename Component: `Input_NominalTarget`. (Centang _NumbersOnly_).
-   - TextBox 3 (Tanggal Target) -> Rename Component: `Input_TanggalTarget`.
-   - Tambahkan **Button** -> Text: `Simpan Target`. Rename Component: `Tombol_SimpanTarget`.
-4. **Wadah Info Target (VerticalArrangement):** Rename Component menjadi `Wadah_Info`. Set **Visible** di Properties menjadi `False` (uncheck). Di dalamnya tarik 3 **Label**:
-   - Rename Component: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
-   - Tambahkan **Button** -> Text: `Hapus & Buat Baru`. Rename Component: `Tombol_HapusTarget`.
+1. **Paste Header:** Tekan **Ctrl + V** (Paste) di keyboard agar Header dan Logo kembali muncul di atas layar.
+2. **Input Keterangan:** Tarik **TextBox**. Ubah Hint menjadi: `Keterangan (Contoh: Uang Saku)`. Rename menjadi: `Input_KeteranganMasuk`.
+3. **Input Nominal:** Tarik **TextBox** ke bawahnya. Centang kotak _NumbersOnly_. Ubah Hint menjadi: `Nominal Pemasukan`. Rename menjadi: `Input_NominalMasuk`.
+4. **Tombol Simpan:** Tarik **Button**. Ubah Text menjadi: `Simpan Pemasukan`. Rename menjadi: `Tombol_SimpanPemasukan`.
+5. **Daftar Riwayat:** Tarik komponen **ListView**. Rename menjadi: `Daftar_Pemasukan`.
+6. **Alat Tambahan:** Tarik komponen **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
+
+### B. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**.
+
+**1. Menyiapkan Variabel & Menampilkan Riwayat Lama:**
+
+- Di kategori **Variables**, tarik blok `initialize global name to`. Ganti `name` jadi `RiwayatMasuk`. Pasangkan dengan blok `create empty list` (dari kategori Lists).
+- Di panel kiri, klik layar **Pemasukan** (ikon HP paling atas). Tarik blok kuning `when Pemasukan.Initialize do`.
+- Klik **Variables**, tarik blok `set to` pilih `global RiwayatMasuk`. Pasangkan dengan blok ungu `call Database_Utama.GetValue`.
+  - Isi `tag` dengan teks pink `"DataPemasukan"`.
+  - Isi `valueIfTagNotThere` dengan blok biru muda `create empty list`.
+- Klik `Daftar_Pemasukan`, tarik blok hijau muda `set Daftar_Pemasukan.Elements to`. Pasangkan dengan blok merah `get global RiwayatMasuk` dan taruh di bawah susunan Initialize tadi.
+
+**2. Logika Tombol Simpan:**
+
+- Klik `Tombol_SimpanPemasukan`, tarik blok kuning `when Tombol_SimpanPemasukan.Click do`.
+- **Tambah Total Saldo:** - Tarik blok ungu `call Database_Utama.StoreValue`. Isi `tag` dengan teks pink `"TotalPemasukan"`.
+  - Di `valueToStore`, pasangkan blok Math tambah `+`.
+  - Sisi kiri blok `+`: tarik `call Database_Utama.GetValue` (tag: `"TotalPemasukan"`, default: `0`). Sisi kanan blok `+`: tarik blok hijau tua `Input_NominalMasuk.Text`.
+- **Tambah ke Riwayat:**
+  - Dari kategori Lists, tarik blok `add items to list`.
+  - Bagian `list`: isi dengan blok merah `get global RiwayatMasuk`.
+  - Bagian `item`: tarik blok pink `join` (buat jadi 3 lubang). Lubang 1 isi dengan `Input_KeteranganMasuk.Text`. Lubang 2 isi dengan teks pink `" - Rp "`. Lubang 3 isi dengan `Input_NominalMasuk.Text`.
+- **Simpan & Tampilkan Riwayat:**
+  - Tarik blok ungu `call Database_Utama.StoreValue`. Isi `tag` dengan teks pink `"DataPemasukan"`. Isi `valueToStore` dengan blok merah `get global RiwayatMasuk`.
+  - Klik `Daftar_Pemasukan`, tarik blok hijau muda `set Daftar_Pemasukan.Elements to` dan pasangkan dengan blok merah `get global RiwayatMasuk`.
+- **Notifikasi:** Tarik blok ungu `call Pesan_Notif.ShowAlert notice`. Isi dengan teks pink `"Pemasukan Berhasil Disimpan!"`.
+
+---
+
+## TAHAP 5: Desain & Blocks - Pengeluaran
+
+Ganti screen aktif ke **Pengeluaran**. Tahap ini hampir sama persis dengan Pemasukan.
+
+### A. Desain (Designer)
+
+1. **Paste Header:** Tekan **Ctrl + V** (Paste).
+2. **Input Keterangan:** Tarik **TextBox**. Ubah Hint: `Keterangan (Contoh: Beli Makan)`. Rename: `Input_KetKeluar`.
+3. **Input Nominal:** Tarik **TextBox**. Centang _NumbersOnly_. Ubah Hint: `Nominal Pengeluaran`. Rename: `Input_NominalKeluar`.
+4. **Tombol Simpan:** Tarik **Button**. Ubah Text: `Simpan Pengeluaran`. Rename: `Tombol_SimpanPengeluaran`.
+5. **Daftar Riwayat:** Tarik **ListView**. Rename: `Daftar_Pengeluaran`.
+6. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
+
+### B. Kode (Blocks)
+
+Pindah ke **Blocks**. Ikuti pola yang sama seperti Pemasukan.
+
+**1. Menyiapkan Variabel & Menampilkan Riwayat:**
+
+- Buat variabel global `RiwayatKeluar` isi dengan `create empty list`.
+- Gunakan blok kuning `when Pengeluaran.Initialize do`. Set `global RiwayatKeluar` dengan GetValue tag `"DataPengeluaran"` (default list kosong). Tampilkan ke `Daftar_Pengeluaran.Elements`.
+
+**2. Logika Tombol Simpan:**
+
+- Gunakan blok kuning `when Tombol_SimpanPengeluaran.Click do`.
+- **Total:** `StoreValue` tag `"TotalPengeluaran"` dengan menjumlahkan `GetValue` ("TotalPengeluaran") ditambah `Input_NominalKeluar.Text`.
+- **Riwayat:** Gunakan `add items to list` ke `global RiwayatKeluar`. Itemnya `join` (`Input_KetKeluar.Text`, `" - Rp "`, `Input_NominalKeluar.Text`).
+- **Simpan & Tampilkan:** `StoreValue` tag `"DataPengeluaran"` dengan isi `global RiwayatKeluar`. Update `Daftar_Pengeluaran.Elements`.
+- **Notifikasi:** ShowAlert `"Pengeluaran Berhasil Dicatat!"`.
+
+---
+
+## TAHAP 6: Desain & Blocks - ProgresTabungan
+
+Ganti screen aktif ke **ProgresTabungan**. Ini adalah tahap akhir untuk melihat rangkuman saldo dan membuat target.
+
+### A. Desain (Designer)
+
+1. **Paste Header:** Tekan **Ctrl + V** (Paste).
+2. **Saldo Otomatis:** Tarik **Label**. Ubah Text: `Saldo Saat Ini: Rp 0`. Perbesar font dan centang FontBold. Rename: `Teks_SaldoOtomatis`.
+3. **Wadah Input Target:** Dari panel Layout, tarik **VerticalArrangement**. Rename: `Wadah_Input`. Di dalamnya tarik 3 **TextBox**:
+   - TextBox 1 -> Hint: `Nama Barang`, Rename: `Input_NamaBarang`.
+   - TextBox 2 -> Hint: `Nominal Target`, Centang _NumbersOnly_, Rename: `Input_NominalTarget`.
+   - TextBox 3 -> Hint: `Tanggal Target`, Rename: `Input_TanggalTarget`.
+   - Tambahkan **Button** -> Text: `Simpan Target`. Rename: `Tombol_SimpanTarget`.
+4. **Wadah Info Target:** Tarik **VerticalArrangement** baru ke bawah layar. Rename: `Wadah_Info`. **PENTING:** Hilangkan centang **Visible** di Properties.
+   - Di dalamnya tarik 3 **Label** berurutan. Rename: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
+   - Tambahkan **Button** -> Text: `Hapus & Buat Baru Target`. Rename: `Tombol_HapusTarget`.
 5. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
 
 ### B. Kode (Blocks)
 
-1. **Saat Layar Dibuka (Initialize):**
-   - Tarik blok `when ProgresTabungan.Initialize do`.
-   - Set `Teks_SaldoOtomatis.Text` dengan cara: Ambil `GetValue` (tag: "TotalPemasukan") dikurangi `GetValue` (tag: "TotalPengeluaran").
-   - **Logika Muncul/Sembunyi:** Gunakan blok `if then else`. Jika `GetValue` (tag: "Target_Nama") = `""` (kosong), maka set `Wadah_Input.Visible` = `True` dan `Wadah_Info.Visible` = `False`. Jika tidak kosong, sebaliknya.
-2. **Tombol Simpan:** Klik `Tombol_SimpanTarget`. Gunakan `StoreValue` untuk menyimpan Nama, Nominal, dan Tanggal ke tag masing-masing. Lalu panggil Notifier "Berhasil" dan ganti Visibilitas wadah.
-3. **Tombol Hapus:** Klik `Tombol_HapusTarget`. Gunakan `StoreValue` untuk mengisi tag "Target_Nama" dengan teks kosong `""`. Lalu ganti Visibilitas wadah agar Input muncul kembali.
+Pindah ke **Blocks**.
 
----
+**1. Saat Layar Dibuka (Menghitung Saldo & Cek Target):**
 
-## TAHAP 5: Desain & Blocks - InputKeuangan
+- Tarik blok kuning `when ProgresTabungan.Initialize do`.
+- **Hitung Saldo:** Klik `Teks_SaldoOtomatis`, tarik `set Teks_SaldoOtomatis.Text to`.
+  - Pasangkan blok `join`. Lubang 1 isi teks pink `"Saldo Saat Ini: Rp "`.
+  - Lubang 2 pasangkan blok kurang `-` (dari Math).
+  - Kiri blok `-`: `GetValue` tag `"TotalPemasukan"` (default 0). Kanan blok `-`: `GetValue` tag `"TotalPengeluaran"` (default 0).
+- **Cek Target:** Di bawahnya (masih dalam Initialize), pasang blok `if then else`.
+  - Bagian `if`: blok logika `=`. Kiri: `GetValue` tag `"Target_Nama"` (default teks kosong `" "`). Kanan: teks pink kosong `" "`.
+  - Bagian `then`: set `Wadah_Input.Visible` ke `true`, set `Wadah_Info.Visible` ke `false`.
+  - Bagian `else`: set `Wadah_Input.Visible` ke `false`, set `Wadah_Info.Visible` ke `true`. Lalu set teks `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal` dengan `GetValue` tag masing-masing.
 
-Ganti screen aktif ke **InputKeuangan**.
+**2. Tombol Simpan Target:**
 
-### A. Desain (Designer)
+- Tarik blok kuning `when Tombol_SimpanTarget.Click do`.
+- Gunakan 3 blok `StoreValue` berturut-turut. Simpan `Input_NamaBarang.Text` ke tag `"Target_Nama"`. Simpan `Input_NominalTarget.Text` ke tag `"Target_Nominal"`. Simpan `Input_TanggalTarget.Text` ke tag `"Target_Tanggal"`.
+- Panggil notifikasi `"Target Berhasil Dibuat!"`.
+- Set `Wadah_Input.Visible` ke `false` dan `Wadah_Info.Visible` ke `true`. (Jangan lupa update teks label infonya dengan input yang baru).
 
-1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul.
-2. **Input Angka:** Tarik **TextBox** (Centang _NumbersOnly_, Rename Component: `Input_AngkaUang`).
-3. **Tombol Aksi:** Tarik 2 **Button** bersampingan (bisa di dalam HorizontalArrangement).
-   - Button 1 -> Text: `Simpan Pemasukan`. Rename Component: `Tombol_SimpanPemasukan`.
-   - Button 2 -> Text: `Simpan Pengeluaran`. Rename Component: `Tombol_SimpanPengeluaran`.
-4. **Daftar Transaksi:** Tarik **ListView**. Rename Component: `Daftar_Transaksi`.
-5. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
+**3. Tombol Hapus Target:**
 
-### B. Kode (Blocks)
-
-1. **Inisialisasi List:** Buat variabel global `DaftarRiwayat` dan isi dengan `create empty list`.
-2. **Saat Simpan Pemasukan:**
-   - Tarik blok `when Tombol_SimpanPemasukan.Click do`.
-   - Ambil total lama dari database tag `"TotalPemasukan"`, tambahkan dengan isi `Input_AngkaUang.Text`, lalu `StoreValue` kembali ke tag `"TotalPemasukan"`.
-   - Tambahkan ke list riwayat: Gunakan `add items to list`. Itemnya gunakan `join`: `"Pemasukan: Rp " + Input_AngkaUang.Text`.
-   - Simpan list riwayat ke database tag `"Riwayat"`.
-   - Update tampilan `Daftar_Transaksi.Elements` dengan list tersebut.
-3. **Saat Simpan Pengeluaran:** - Tarik blok `when Tombol_SimpanPengeluaran.Click do`.
-   - Lakukan hal yang sama tapi simpan ke tag `"TotalPengeluaran"` dan keterangan di riwayat ganti menjadi `"Pengeluaran: Rp "`.
+- Tarik blok kuning `when Tombol_HapusTarget.Click do`.
+- Gunakan `StoreValue`, isi tag `"Target_Nama"` dengan teks pink kosong `" "`.
+- Set `Wadah_Input.Visible` ke `true` dan `Wadah_Info.Visible` ke `false`.
 
 ---
 
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda.
-2. **Coba jalankan secara penuh:** Klik logo di atas untuk kembali ke halaman utama. Input uang di menu Pencatatan, lalu cek apakah saldo di menu Progres berubah secara otomatis.
+2. **Coba jalankan secara penuh:** Input Pemasukan, lalu input Pengeluaran. Setelah itu buka menu Progres Tabungan, pastikan saldonya terpotong/bertambah secara otomatis!
 3. **Desain:** Anda bisa mempercantik warna tombol dan ukuran teks setelah semua fungsi blok berjalan lancar.
