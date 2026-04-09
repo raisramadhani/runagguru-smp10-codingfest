@@ -33,7 +33,7 @@ Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **Halam
 1. **Membuat Header & Logo (Untuk di-copy nanti):**
    - Dari panel **Palette** > **Layout**, tarik **HorizontalArrangement** ke layar bagian paling atas.
    - Dari **Palette** > **User Interface**, tarik komponen **Image** ke dalam kotak HorizontalArrangement tadi.
-   - Di panel **Components**, klik tombol **Rename** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
+   - Di panel **Components**, klik tombol **Rename Component** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
    - Di panel **Properties**, cari kotak centang bernama **Clickable** dan **wajib dicentang** (agar logo bisa ditekan).
    - _(Opsional)_ Tarik **Label** di sebelah logo jika ingin memberi teks judul aplikasi.
 
@@ -41,12 +41,12 @@ Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **Halam
    - Lihat ke panel sebelah kiri bernama **Palette**. Di bawah kategori **User Interface**, cari komponen **Button**.
    - Tarik (drag) **Button** ke layar HP (Viewer) di bawah header.
    - Di panel **Properties** (paling kanan), ubah **Text** menjadi: `Menu Top Up Saldo`.
-   - Di panel **Components** (tengah-kanan), klik tombol **Rename**, ubah namanya menjadi: `Tombol_MenuTopUp`.
+   - Di panel **Components** (tengah-kanan), klik tombol **Rename Component**, ubah namanya menjadi: `Tombol_MenuTopUp`.
 
 3. **Membuat Menu Target Impian:**
    - Tarik lagi komponen **Button** ke bawah tombol pertama.
    - Di panel **Properties**, ubah **Text** menjadi: `Menu Target Impian`.
-   - Di panel **Components**, klik **Rename**, ubah namanya menjadi: `Tombol_MenuTarget`.
+   - Di panel **Components**, klik **Rename Component**, ubah namanya menjadi: `Tombol_MenuTarget`.
 
 ---
 
@@ -96,19 +96,19 @@ Ganti screen aktif ke **TopUp** melalui dropdown Screen di atas. Di halaman ini 
    - Ganti screen ke `TopUp`. Tekan tombol **Ctrl + V** (Paste). Header dan Logo akan otomatis muncul beserta blok logikanya!
 2. **Pilih Kantong (Spinner):** Dari **Palette** > **User Interface**, tarik komponen **Spinner** ke layar.
    - Di **Properties**, cari **ElementsFromString** lalu ketik teks ini persis (tanpa spasi setelah koma): `Kantong_1,Kantong_2,Kantong_3`
-   - Klik **Rename**, ubah menjadi: `Pilih_Kantong`.
+   - Klik **Rename Component**, ubah menjadi: `Pilih_Kantong`.
 3. **Input Nominal:** Dari **Palette** > **User Interface**, tarik komponen **TextBox**.
    - Di **Properties**, centang kotak **NumbersOnly**.
    - Ubah **Hint** menjadi: `Masukkan Nominal Top Up`.
-   - Klik **Rename**, ubah menjadi: `Input_Nominal`.
+   - Klik **Rename Component**, ubah menjadi: `Input_Nominal`.
 4. **Info Admin:** Dari **Palette** > **User Interface**, tarik **Label**.
    - Di **Properties**, ubah Text: `Biaya Admin: Rp 2.000` (agar user tahu saldonya akan terpotong 2000).
 5. **Tombol Top Up:** Dari **Palette** > **User Interface**, tarik komponen **Button**.
    - Di **Properties**, ubah **Text** menjadi: `Top Up Sekarang`.
-   - Klik **Rename**, ubah menjadi: `Tombol_SimpanTopUp`.
+   - Klik **Rename Component**, ubah menjadi: `Tombol_SimpanTopUp`.
 6. **Database & Notifikasi:**
-   - Dari **Palette** > **Storage**, tarik **TinyDB**. (Klik **Rename** jadi `Database_Aplikasi`).
-   - Dari **Palette** > **User Interface**, tarik **Notifier**. (Klik **Rename** jadi `Notifikasi_Pesan`).
+   - Dari **Palette** > **Storage**, tarik **TinyDB**. (Klik **Rename Component** jadi `Database_Aplikasi`).
+   - Dari **Palette** > **User Interface**, tarik **Notifier**. (Klik **Rename Component** jadi `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 
@@ -145,13 +145,13 @@ Ganti screen aktif ke **TambahTarget** melalui dropdown Screen di atas.
 ### A. Desain (Designer)
 
 1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul di posisi paling atas layar ini.
-2. **Input Nama Barang:** Tarik **TextBox**. Ubah Hint: `Nama Barang (Contoh: Sepatu)`. Rename: `Input_NamaBarang`.
-3. **Input URL Link:** Tarik **TextBox**. Ubah Hint: `URL / Link Toko`. Rename: `Input_URL`.
-4. **Input Harga:** Tarik **TextBox**. Centang **NumbersOnly**. Ubah Hint: `Harga Barang`. Rename: `Input_Harga`.
-5. **Tombol Simpan:** Tarik **Button**. Ubah Text: `Simpan Target Impian`. Rename: `Tombol_SimpanTarget`.
+2. **Input Nama Barang:** Tarik **TextBox**. Ubah Hint: `Nama Barang (Contoh: Sepatu)`. Rename Component: `Input_NamaBarang`.
+3. **Input URL Link:** Tarik **TextBox**. Ubah Hint: `URL / Link Toko`. Rename Component: `Input_URL`.
+4. **Input Harga:** Tarik **TextBox**. Centang **NumbersOnly**. Ubah Hint: `Harga Barang`. Rename Component: `Input_Harga`.
+5. **Tombol Simpan:** Tarik **Button**. Ubah Text: `Simpan Target Impian`. Rename Component: `Tombol_SimpanTarget`.
 6. **Database & Notifikasi:**
-   - Tarik **TinyDB** dari Storage. (Rename jadi `Database_Aplikasi`).
-   - Tarik **Notifier** dari User Interface. (Rename jadi `Notifikasi_Pesan`).
+   - Tarik **TinyDB** dari Storage. (Rename Component jadi `Database_Aplikasi`).
+   - Tarik **Notifier** dari User Interface. (Rename Component jadi `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 

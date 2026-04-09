@@ -30,25 +30,25 @@ Pastikan di bagian atas layar App Inventor, Anda sedang berada di Screen **Halam
 
 1. **Mengatur Logo Aplikasi:**
    - Di panel **Components** (sebelah kanan), cari dan klik komponen gambar logo Anda.
-   - Klik tombol **Rename** di bawahnya, ubah namanya menjadi: `Logo_Aplikasi`.
+   - Klik tombol **Rename Component** di bawahnya, ubah namanya menjadi: `Logo_Aplikasi`.
    - Turun ke panel **Properties** (paling kanan), cari kotak centang bernama **Clickable** dan **wajib dicentang**. (Ini agar logo bisa ditekan).
    - Di bagian **Picture**, upload dan pilih gambar logo Anda.
 
 2. **Mengatur Menu Home:**
    - Di panel **Components**, klik komponen gambar untuk menu Home (terletak di dalam susunan menu pertama).
-   - Klik **Rename**, ubah namanya menjadi: `Tombol_Home`.
+   - Klik **Rename Component**, ubah namanya menjadi: `Tombol_Home`.
    - Di panel **Properties**, centang kotak **Clickable**.
    - Di bagian **Picture**, pilih gambar ikon Home.
 
 3. **Mengatur Menu Tambah Tabungan:**
    - Di panel **Components**, klik komponen gambar untuk menu Tambah Tabungan.
-   - Klik **Rename**, ubah namanya menjadi: `Tombol_TambahTabungan`.
+   - Klik **Rename Component**, ubah namanya menjadi: `Tombol_TambahTabungan`.
    - Di panel **Properties**, centang kotak **Clickable**.
    - Di bagian **Picture**, pilih gambar ikon Tambah Tabungan.
 
 4. **Mengatur Menu Total Tabungan:**
    - Di panel **Components**, klik komponen gambar untuk menu Total Tabungan.
-   - Klik **Rename**, ubah namanya menjadi: `Tombol_TotalTabungan`.
+   - Klik **Rename Component**, ubah namanya menjadi: `Tombol_TotalTabungan`.
    - Di panel **Properties**, centang kotak **Clickable**.
    - Di bagian **Picture**, pilih gambar ikon Total Tabungan.
 
@@ -99,17 +99,17 @@ Ganti screen aktif ke **TambahTabungan** melalui dropdown Screen di atas.
 1. **Input Nominal:** Dari panel **Palette** > **User Interface**, tarik komponen **TextBox** ke layar.
    - Di **Properties**, centang kotak **NumbersOnly** (agar keyboard angka yang muncul).
    - Ubah **Hint** menjadi: `Masukkan Nominal (contoh: 50000)`.
-   - Klik **Rename**, ubah menjadi: `Input_Nominal`.
+   - Klik **Rename Component**, ubah menjadi: `Input_Nominal`.
 2. **Input Tanggal:** Dari **Palette** > **User Interface**, tarik komponen **DatePicker**.
    - Di **Properties**, ubah **Text** menjadi: `Pilih Tanggal`.
-   - Klik **Rename**, ubah menjadi: `Pilih_Tanggal`.
+   - Klik **Rename Component**, ubah menjadi: `Pilih_Tanggal`.
 3. **Tombol Simpan:** Dari **Palette** > **User Interface**, tarik komponen **Button**.
    - Di **Properties**, ubah **Text** menjadi: `Simpan Tabungan`.
-   - Klik **Rename**, ubah menjadi: `Tombol_Simpan`.
+   - Klik **Rename Component**, ubah menjadi: `Tombol_Simpan`.
 4. **Database:** Dari **Palette**, scroll ke bawah, klik kategori **Storage**. Tarik **TinyDB** ke layar (dia akan muncul di bawah layar sebagai _Non-visible component_).
-   - Klik **Rename**, ubah menjadi: `Database_Tabungan`.
+   - Klik **Rename Component**, ubah menjadi: `Database_Tabungan`.
 5. **Pesan Notifikasi:** Dari panel **Palette** > **User Interface**, tarik komponen **Notifier** ke layar (dia juga akan muncul di bawah layar sebagai _Non-visible component_).
-   - Klik **Rename**, ubah menjadi: `Notifikasi_Pesan`.
+   - Klik **Rename Component**, ubah menjadi: `Notifikasi_Pesan`.
 
 ### B. Kode (Blocks)
 
@@ -169,14 +169,14 @@ Ganti screen aktif ke **TotalTabungan** melalui dropdown Screen di atas.
    - Di **Properties**, ubah Text: `Total Tabungan Anda:`
 2. Tarik **Label** kedua ke bawahnya.
    - Di **Properties**, ubah Text: `Rp 0`. Font size perbesar jadi `24`, centang **FontBold**.
-   - Klik **Rename**, ubah menjadi: `Teks_AngkaTotal`.
+   - Klik **Rename Component**, ubah menjadi: `Teks_AngkaTotal`.
 3. Dari **Palette** > **User Interface**, tarik komponen **ListView** (untuk menampilkan daftar riwayat ke bawah).
-   - Klik **Rename**, ubah menjadi: `Daftar_Riwayat`.
+   - Klik **Rename Component**, ubah menjadi: `Daftar_Riwayat`.
 4. Dari **Palette** > **Storage**, tarik komponen **TinyDB**.
-   - Klik **Rename**, ubah menjadi: `Database_Tabungan`.
+   - Klik **Rename Component**, ubah menjadi: `Database_Tabungan`.
 5. Tarik **Button** ke layar paling bawah.
    - Di **Properties**, ubah Text: `Kembali`.
-   - Klik **Rename**, ubah menjadi: `Tombol_Kembali`.
+   - Klik **Rename Component**, ubah menjadi: `Tombol_Kembali`.
 
 ### B. Kode (Blocks)
 

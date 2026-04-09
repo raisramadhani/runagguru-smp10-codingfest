@@ -34,25 +34,25 @@ Pastikan screen aktif di bagian atas adalah **HalamanUtama**. Di sini kita akan 
 1. **Membuat Header & Logo (Untuk di-copy nanti):**
    - Dari panel **Palette** > **Layout**, tarik **HorizontalArrangement** ke layar bagian paling atas.
    - Dari **Palette** > **User Interface**, tarik komponen **Image** ke dalam kotak HorizontalArrangement tadi.
-   - Di panel **Components**, klik tombol **Rename** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
+   - Di panel **Components**, klik tombol **Rename Component** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
    - Di panel **Properties**, cari kotak centang bernama **Clickable** dan **wajib dicentang** (agar logo bisa ditekan).
    - _(Opsional)_ Tarik **Label** di sebelah logo jika ingin memberi teks judul aplikasi.
 
 2. **Membuat Menu Pemasukan:**
    - Dari panel **Palette** > **User Interface**, tarik komponen **Button** ke layar HP (Viewer) di bawah header.
-   - Ubah **Text** di Properties menjadi: `Input Pemasukan`. Lalu klik **Rename** menjadi: `Tombol_MenuPemasukan`.
+   - Ubah **Text** di Properties menjadi: `Input Pemasukan`. Lalu klik **Rename Component** menjadi: `Tombol_MenuPemasukan`.
 
 3. **Membuat Menu Pengeluaran:**
    - Tarik **Button** lagi ke bawahnya.
-   - Ubah **Text** menjadi: `Input Pengeluaran`. Klik **Rename** menjadi: `Tombol_MenuPengeluaran`.
+   - Ubah **Text** menjadi: `Input Pengeluaran`. Klik **Rename Component** menjadi: `Tombol_MenuPengeluaran`.
 
 4. **Membuat Menu Saldo:**
    - Tarik **Button** lagi ke bawahnya.
-   - Ubah **Text** menjadi: `Cek Saldo`. Klik **Rename** menjadi: `Tombol_MenuSaldo`.
+   - Ubah **Text** menjadi: `Cek Saldo`. Klik **Rename Component** menjadi: `Tombol_MenuSaldo`.
 
 5. **Membuat Menu Target:**
    - Tarik **Button** lagi ke bawahnya.
-   - Ubah **Text** menjadi: `Target Impian`. Klik **Rename** menjadi: `Tombol_MenuTarget`.
+   - Ubah **Text** menjadi: `Target Impian`. Klik **Rename Component** menjadi: `Tombol_MenuTarget`.
 
 ---
 
@@ -94,20 +94,20 @@ Ganti screen aktif ke **SaldoTarget**. Di sini kita akan membuat sistem perhitun
    - Klik komponen `HorizontalArrangement` (Header) yang berisi Logo Anda.
    - Tekan tombol **Ctrl + C** (Copy) di keyboard Anda.
    - Ganti screen ke `SaldoTarget`. Tekan tombol **Ctrl + V** (Paste). Header dan Logo akan otomatis muncul beserta blok logikanya!
-2. **Info Saldo:** Tarik **Label**. Ubah Text menjadi: `Sisa Saldo Anda: Rp 0`. Perbesar ukuran font, dan centang FontBold. Rename menjadi: `Teks_TotalSaldo`.
-3. **Wadah Form Target:** Dari **Palette** > **Layout**, tarik **VerticalArrangement**. Rename menjadi: `Wadah_FormTarget`.
+2. **Info Saldo:** Tarik **Label**. Ubah Text menjadi: `Sisa Saldo Anda: Rp 0`. Perbesar ukuran font, dan centang FontBold. Rename Component menjadi: `Teks_TotalSaldo`.
+3. **Wadah Form Target:** Dari **Palette** > **Layout**, tarik **VerticalArrangement**. Rename Component menjadi: `Wadah_FormTarget`.
    - Di dalam wadah ini, tarik 4 **TextBox**:
-     - TextBox 1 -> Hint: `Nama Barang`, Rename: `Input_NamaTarget`.
-     - TextBox 2 -> Hint: `URL / Link Barang`, Rename: `Input_URLTarget`.
-     - TextBox 3 -> Hint: `Nominal Target`, Centang _NumbersOnly_, Rename: `Input_NominalTarget`.
-     - TextBox 4 -> Hint: `Tanggal (Due Date)`, Rename: `Input_TanggalTarget`.
-   - Tarik 1 **Button** ke dalam wadah ini. Ubah Text: `Simpan Target`. Rename: `Tombol_SimpanTarget`.
-4. **Wadah Info Target (Jika Target Sudah Ada):** Tarik **VerticalArrangement** baru ke bawah layar. Rename: `Wadah_InfoTarget`.
-   - Di dalam wadah ini, tarik 4 **Label** berurutan ke bawah. Rename masing-masing menjadi: `Teks_InfoNama`, `Teks_InfoURL`, `Teks_InfoNominal`, `Teks_InfoTanggal`. (Isi Text-nya biarkan bawaan dulu).
-   - Tarik 1 **Button** ke dalam wadah ini. Ubah Text: `Hapus Target (Bikin Baru)`. Rename: `Tombol_HapusTarget`.
+     - TextBox 1 -> Hint: `Nama Barang`, Rename Component: `Input_NamaTarget`.
+     - TextBox 2 -> Hint: `URL / Link Barang`, Rename Component: `Input_URLTarget`.
+     - TextBox 3 -> Hint: `Nominal Target`, Centang _NumbersOnly_, Rename Component: `Input_NominalTarget`.
+     - TextBox 4 -> Hint: `Tanggal (Due Date)`, Rename Component: `Input_TanggalTarget`.
+   - Tarik 1 **Button** ke dalam wadah ini. Ubah Text: `Simpan Target`. Rename Component: `Tombol_SimpanTarget`.
+4. **Wadah Info Target (Jika Target Sudah Ada):** Tarik **VerticalArrangement** baru ke bawah layar. Rename Component: `Wadah_InfoTarget`.
+   - Di dalam wadah ini, tarik 4 **Label** berurutan ke bawah. Rename Component masing-masing menjadi: `Teks_InfoNama`, `Teks_InfoURL`, `Teks_InfoNominal`, `Teks_InfoTanggal`. (Isi Text-nya biarkan bawaan dulu).
+   - Tarik 1 **Button** ke dalam wadah ini. Ubah Text: `Hapus Target (Bikin Baru)`. Rename Component: `Tombol_HapusTarget`.
    - **PENTING:** Di panel Properties `Wadah_InfoTarget`, hilangkan centang **Visible** (agar disembunyikan saat layar pertama kali dibuka).
-5. **Database & Notifikasi:** - Tarik **TinyDB** dari Storage (Rename: `Database_Aplikasi`).
-   - Tarik **Notifier** dari User Interface (Rename: `Notifikasi_Pesan`).
+5. **Database & Notifikasi:** - Tarik **TinyDB** dari Storage (Rename Component: `Database_Aplikasi`).
+   - Tarik **Notifier** dari User Interface (Rename Component: `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 
@@ -176,9 +176,9 @@ Ganti screen aktif ke **Pemasukan**.
 ### A. Desain (Designer)
 
 1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul di posisi paling atas layar ini.
-2. Tarik **TextBox**, centang _NumbersOnly_, Hint: `Nominal Pemasukan`, Rename: `Input_Pemasukan`.
-3. Tarik **Button**, Text: `Simpan Pemasukan`, Rename: `Tombol_SimpanPemasukan`.
-4. Tarik **TinyDB** (Rename: `Database_Aplikasi`) dan **Notifier** (Rename: `Notifikasi_Pesan`).
+2. Tarik **TextBox**, centang _NumbersOnly_, Hint: `Nominal Pemasukan`, Rename Component: `Input_Pemasukan`.
+3. Tarik **Button**, Text: `Simpan Pemasukan`, Rename Component: `Tombol_SimpanPemasukan`.
+4. Tarik **TinyDB** (Rename Component: `Database_Aplikasi`) dan **Notifier** (Rename Component: `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 
@@ -208,9 +208,9 @@ Ganti screen aktif ke **Pengeluaran**. (Tahap ini hampir sama persis dengan Pema
 ### A. Desain (Designer)
 
 1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul.
-2. Tarik **TextBox**, centang _NumbersOnly_, Hint: `Nominal Pengeluaran`, Rename: `Input_Pengeluaran`.
-3. Tarik **Button**, Text: `Simpan Pengeluaran`, Rename: `Tombol_SimpanPengeluaran`.
-4. Tarik **TinyDB** (Rename: `Database_Aplikasi`) dan **Notifier** (Rename: `Notifikasi_Pesan`).
+2. Tarik **TextBox**, centang _NumbersOnly_, Hint: `Nominal Pengeluaran`, Rename Component: `Input_Pengeluaran`.
+3. Tarik **Button**, Text: `Simpan Pengeluaran`, Rename Component: `Tombol_SimpanPengeluaran`.
+4. Tarik **TinyDB** (Rename Component: `Database_Aplikasi`) dan **Notifier** (Rename Component: `Notifikasi_Pesan`).
 
 ### B. Kode (Blocks)
 

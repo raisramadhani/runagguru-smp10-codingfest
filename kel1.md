@@ -34,13 +34,13 @@ Pastikan screen aktif di bagian atas adalah **HalamanUtama**. Di sini kita akan 
 1. **Membuat Header & Logo (Untuk di-copy nanti):**
    - Dari panel **Palette** > **Layout**, tarik **HorizontalArrangement** ke layar bagian paling atas.
    - Dari **Palette** > **User Interface**, tarik komponen **Image** ke dalam kotak HorizontalArrangement tadi.
-   - Di panel **Components**, klik tombol **Rename** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
+   - Di panel **Components**, klik tombol **Rename Component** pada gambar tersebut, ubah namanya menjadi: `Logo_Aplikasi`.
    - Di panel **Properties**, cari kotak centang bernama **Clickable** dan **wajib dicentang** (agar logo bisa ditekan).
    - _(Opsional)_ Tarik **Label** di sebelah logo jika ingin memberi teks judul aplikasi.
 2. **Membuat Tombol 1 (Tips & Trik):** - Tarik komponen **Button** ke bawah header.
-   - Ubah **Text** menjadi: `Tips & Trik Menabung`. Lalu klik **Rename** menjadi: `Tombol_MenuTips`.
-3. **Membuat Tombol 2 (Progres Tabungan):** - Tarik **Button** lagi. Ubah **Text** menjadi: `Progres Tabungan & Target`. Klik **Rename** menjadi: `Tombol_MenuProgres`.
-4. **Membuat Tombol 3 (Pemasukan & Pengeluaran):** - Tarik **Button** lagi. Ubah **Text** menjadi: `Catat Pemasukan/Pengeluaran`. Klik **Rename** menjadi: `Tombol_MenuInput`.
+   - Ubah **Text** menjadi: `Tips & Trik Menabung`. Lalu klik **Rename Component** menjadi: `Tombol_MenuTips`.
+3. **Membuat Tombol 2 (Progres Tabungan):** - Tarik **Button** lagi. Ubah **Text** menjadi: `Progres Tabungan & Target`. Klik **Rename Component** menjadi: `Tombol_MenuProgres`.
+4. **Membuat Tombol 3 (Pemasukan & Pengeluaran):** - Tarik **Button** lagi. Ubah **Text** menjadi: `Catat Pemasukan/Pengeluaran`. Klik **Rename Component** menjadi: `Tombol_MenuInput`.
 
 ### B. Kode (Blocks)
 
@@ -75,13 +75,13 @@ Ganti screen aktif ke **TipsTrik**. Di sini kita akan membuat daftar list yang b
 2. **Membuat Daftar Judul:**
    - Dari **Palette** > **User Interface**, tarik komponen **ListView** ke layar di bawah header.
    - Di panel **Properties**, ubah **Height** menjadi `30 Percent` (agar tidak memakan seluruh layar).
-   - Klik **Rename** menjadi: `Daftar_TipsTrik`.
+   - Klik **Rename Component** menjadi: `Daftar_TipsTrik`.
 3. **Membuat Wadah Deskripsi:**
    - Dari **Palette** > **Layout**, tarik **ScrollVerticalArrangement** ke bawah ListView tadi.
    - Di Properties, set **Height** dan **Width** menjadi `Fill Parent`.
 4. **Menyiapkan Teks Deskripsi:**
    - Di dalam kotak scroll tersebut, tarik sebuah **Label**.
-   - Klik **Rename** menjadi: `Teks_Deskripsi`.
+   - Klik **Rename Component** menjadi: `Teks_Deskripsi`.
    - Di panel Properties, ubah teks bawaannya menjadi: `Silakan klik salah satu judul tips di atas untuk membaca detailnya.`
 
 ### B. Kode (Blocks)
@@ -127,15 +127,15 @@ Ganti screen aktif ke **ProgresTabungan**.
 ### A. Desain (Designer)
 
 1. **Paste Header:** Langsung tekan tombol **Ctrl + V** (Paste) di keyboard Anda untuk memunculkan Header dan Logo kembali ke layar ini.
-2. **Saldo Otomatis:** Tarik **Label**. Ubah Text: `Saldo Saat Ini: Rp 0`. Perbesar font dan centang FontBold. Rename: `Teks_SaldoOtomatis`.
-3. **Wadah Input Target (VerticalArrangement):** Rename menjadi `Wadah_Input`. Di dalamnya tarik 3 **TextBox**:
-   - TextBox 1 (Nama Barang) -> Rename: `Input_NamaBarang`.
-   - TextBox 2 (Nominal Target) -> Rename: `Input_NominalTarget`. (Centang _NumbersOnly_).
-   - TextBox 3 (Tanggal Target) -> Rename: `Input_TanggalTarget`.
-   - Tambahkan **Button** -> Text: `Simpan Target`. Rename: `Tombol_SimpanTarget`.
-4. **Wadah Info Target (VerticalArrangement):** Rename menjadi `Wadah_Info`. Set **Visible** di Properties menjadi `False` (uncheck). Di dalamnya tarik 3 **Label**:
-   - Rename: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
-   - Tambahkan **Button** -> Text: `Hapus & Buat Baru`. Rename: `Tombol_HapusTarget`.
+2. **Saldo Otomatis:** Tarik **Label**. Ubah Text: `Saldo Saat Ini: Rp 0`. Perbesar font dan centang FontBold. Rename Component: `Teks_SaldoOtomatis`.
+3. **Wadah Input Target (VerticalArrangement):** Rename Component menjadi `Wadah_Input`. Di dalamnya tarik 3 **TextBox**:
+   - TextBox 1 (Nama Barang) -> Rename Component: `Input_NamaBarang`.
+   - TextBox 2 (Nominal Target) -> Rename Component: `Input_NominalTarget`. (Centang _NumbersOnly_).
+   - TextBox 3 (Tanggal Target) -> Rename Component: `Input_TanggalTarget`.
+   - Tambahkan **Button** -> Text: `Simpan Target`. Rename Component: `Tombol_SimpanTarget`.
+4. **Wadah Info Target (VerticalArrangement):** Rename Component menjadi `Wadah_Info`. Set **Visible** di Properties menjadi `False` (uncheck). Di dalamnya tarik 3 **Label**:
+   - Rename Component: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
+   - Tambahkan **Button** -> Text: `Hapus & Buat Baru`. Rename Component: `Tombol_HapusTarget`.
 5. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
 
 ### B. Kode (Blocks)
@@ -156,11 +156,11 @@ Ganti screen aktif ke **InputKeuangan**.
 ### A. Desain (Designer)
 
 1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul.
-2. **Input Angka:** Tarik **TextBox** (Centang _NumbersOnly_, Rename: `Input_AngkaUang`).
+2. **Input Angka:** Tarik **TextBox** (Centang _NumbersOnly_, Rename Component: `Input_AngkaUang`).
 3. **Tombol Aksi:** Tarik 2 **Button** bersampingan (bisa di dalam HorizontalArrangement).
-   - Button 1 -> Text: `Simpan Pemasukan`. Rename: `Tombol_SimpanPemasukan`.
-   - Button 2 -> Text: `Simpan Pengeluaran`. Rename: `Tombol_SimpanPengeluaran`.
-4. **Daftar Transaksi:** Tarik **ListView**. Rename: `Daftar_Transaksi`.
+   - Button 1 -> Text: `Simpan Pemasukan`. Rename Component: `Tombol_SimpanPemasukan`.
+   - Button 2 -> Text: `Simpan Pengeluaran`. Rename Component: `Tombol_SimpanPengeluaran`.
+4. **Daftar Transaksi:** Tarik **ListView**. Rename Component: `Daftar_Transaksi`.
 5. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
 
 ### B. Kode (Blocks)
