@@ -231,6 +231,118 @@ Pindah ke tampilan **Blocks**. _(Blok kembali via Logo sudah ada otomatis)._
 
 ---
 
+## TAHAP 6: Membuat Screen Fitur Bonus & Update Menu
+
+Kita perlu membuat 2 Screen baru untuk fitur bonus ini, dan menambahkan satu tombol akses di Halaman Utama.
+
+1. Di bagian atas layar, klik tombol **Add Screen**.
+2. Ketik nama: `InputBarang` lalu klik OK.
+3. Ulangi langkah 1, klik **Add Screen**, ketik nama: `DaftarBarang` lalu klik OK.
+4. **Update HalamanUtama:** - Kembali ke screen `HalamanUtama` sebentar.
+   - Tarik 1 **Button** baru ke bawah tombol menu yang sudah ada.
+   - Ubah **Text** menjadi: `Barang Prioritas`.
+   - Klik **Rename Component** menjadi: `Tombol_MenuBarang`.
+   - Beralih ke **Blocks**, buat logika seperti tombol lainnya: `when Tombol_MenuBarang.Click do` -> `open another screen screenName` isi dengan `"InputBarang"`.
+
+> **PENTING:** Silakan coba Run program. Pastikan tombol menu baru ini berhasil memindahkan Anda ke layar InputBarang tanpa error.
+
+---
+
+## TAHAP 7: Desain & Blocks - InputBarang
+
+Ganti screen aktif ke **InputBarang**. Di sini kita akan membuat form untuk memasukkan data barang beserta tingkat prioritasnya.
+
+**Preview Desain:**
+_(Bayangkan ada form dengan input Nama, Harga, dan Dropdown angka 1-5)_
+
+### A. Desain (Designer)
+
+1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda agar Header dan Logo kembali muncul di posisi paling atas layar ini.
+2. **Form Nama Barang:** Tarik **TextBox** ke layar. Ubah Hint menjadi: `Nama Barang`. Rename Component: `Input_Nama`.
+3. **Form Harga Barang:** Tarik **TextBox** ke layar. Centang _NumbersOnly_. Ubah Hint menjadi: `Harga Barang (Rp)`. Rename Component: `Input_Harga`.
+4. **Pilihan Prioritas:** - Dari **Palette** > **User Interface**, tarik komponen **Spinner**.
+   - Di panel Properties, cari kolom **ElementsFromString**. Ketik persis seperti ini (gunakan koma, tanpa spasi): `1,2,3,4,5`.
+   - Rename Component menjadi: `Pilih_Prioritas`.
+5. **Tombol Aksi:**
+   - Tarik **Button**, ubah Text: `Simpan Barang`. Rename Component: `Tombol_SimpanBarang`.
+   - Tarik **Button** lagi di bawahnya, ubah Text: `Lihat Daftar Barang`. Rename Component: `Tombol_LihatDaftar`.
+6. **Database & Notifikasi:** Tarik **TinyDB** (Rename: `Database_Aplikasi`) dan **Notifier** (Rename: `Notifikasi_Pesan`).
+
+### B. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**. Logika ini menggunakan "List" untuk menyimpan beberapa data sekaligus.
+
+1. **Tombol Lihat Daftar:**
+   - Klik `Tombol_LihatDaftar`, tarik `when Click do`.
+   - Tarik `open another screen screenName` dan isi teks pink dengan `"DaftarBarang"`.
+
+2. **Tombol Simpan Barang (Menyimpan ke List):**
+   - Klik `Tombol_SimpanBarang`, tarik `when Click do`.
+   - Di panel kiri bagian Built-in, klik **Variables**. Tarik blok `initialize local name to` (blok oranye). Ubah tulisan `name` menjadi `DataBaru`.
+   - Di lubang kanan blok `initialize local`: klik kategori **Lists** (biru muda), tarik blok `make a list`.
+   - Klik ikon gir biru kecil di blok `make a list`, tambahkan satu `item` lagi ke dalam `list` sehingga ada **3 lubang**.
+     - Lubang 1: isi dengan blok hijau tua `Input_Nama.Text`.
+     - Lubang 2: isi dengan blok hijau tua `Input_Harga.Text`.
+     - Lubang 3: isi dengan blok hijau tua `Pilih_Prioritas.Selection`.
+   - **Di dalam celah bawah blok oranye `initialize local`:**
+     - Tarik blok dari kategori **Lists**: `add items to list`.
+     - Di lubang `list`: tarik blok ungu `call Database_Aplikasi.GetValue`. Isi tag dengan teks pink `"DataBarang"`. Isi `valueIfTagNotThere` dengan blok biru muda `create empty list` (dari kategori Lists).
+     - Di lubang `item`: arahkan kursor (jangan diklik, tempel saja) ke tulisan `DataBaru` di blok oranye, lalu tarik blok `get DataBaru`.
+   - **Menyimpan ulang ke Database:**
+     - Tarik blok ungu `call Database_Aplikasi.StoreValue` dan pasangkan di bawah blok `add items to list`.
+     - Isi `tag` dengan teks pink `"DataBarang"`.
+     - Isi `valueToStore` dengan blok ungu `call Database_Aplikasi.GetValue` (tag `"DataBarang"`, default `create empty list`).
+   - **Notifikasi & Reset:** - Tarik `call Notifikasi_Pesan.ShowAlert notice`, isi dengan teks pink `"Barang Disimpan!"`.
+     - Tarik blok `set Input_Nama.Text to` dan isi teks pink kosong `" "`.
+     - Tarik blok `set Input_Harga.Text to` dan isi teks pink kosong `" "`.
+
+> **PENTING:** Coba jalankan aplikasi. Isi form dan klik simpan. Pastikan notifikasi muncul dan kolom teks kembali kosong.
+
+---
+
+## TAHAP 8: Desain & Blocks - DaftarBarang
+
+Ganti screen aktif ke **DaftarBarang**. Di sini kita akan memanggil data dari database dan menyusunnya berdasarkan prioritas 1 (terpenting) sampai 5 secara otomatis menggunakan logika perulangan (Looping).
+
+### A. Desain (Designer)
+
+1. **Paste Header:** Tekan tombol **Ctrl + V** (Paste) di keyboard Anda.
+2. **Daftar Tampilan:** Dari **Palette** > **User Interface**, tarik komponen **ListView**. Rename Component: `List_TampilBarang`.
+   - _Catatan:_ ListView adalah wadah paling rapi untuk menampilkan data berbentuk barisan ke bawah.
+3. **Database:** Tarik **TinyDB** (Rename: `Database_Aplikasi`).
+
+### B. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**. Kita akan membuat logika pemilahan (sorting) yang berjalan otomatis saat layar dibuka.
+
+1. Klik layar `DaftarBarang` di panel kiri, tarik blok kuning `when DaftarBarang.Initialize do`.
+2. Buka kategori **Variables**, tarik blok oranye `initialize local name to`.
+   - Ubah tulisan `name` menjadi `DataTampil`.
+   - Di lubang kanannya, isi dengan blok biru muda `create empty list` (dari kategori Lists).
+3. **Logika Perulangan (Sorting Prioritas 1 sampai 5):**
+   - Di dalam celah bawah blok oranye tadi, klik kategori **Control**, tarik blok cokelat `for each number from 1 to 5 by 1`.
+   - Di dalam celah blok `for each number` tersebut, tarik blok cokelat lainnya: `for each item in list`.
+   - Di lubang `list` pada blok tersebut: tarik blok ungu `call Database_Aplikasi.GetValue`, isi tag `"DataBarang"`, default `create empty list`.
+4. **Logika Pengecekan Kondisi:**
+   - Masih di dalam celah `for each item`, tarik blok cokelat `if then`.
+   - Di bagian `if`: klik **Logic**, tarik blok sama dengan `=`.
+     - Sisi kiri `=`: klik **Lists**, tarik `select list item list index`.
+       - Isi `list` dengan arahkan kursor ke tulisan `item` (di blok for each), lalu tarik `get item`.
+       - Isi `index` dengan angka **3** (dari kategori Math). _Ini mengecek index ke-3, yaitu angka prioritas yang kita simpan tadi._
+     - Sisi kanan `=`: arahkan kursor ke tulisan `number` (di blok for each pertama), tarik `get number`.
+   - Di bagian `then`:
+     - Klik **Lists**, tarik `add items to list`.
+     - Lubang `list`: arahkan kursor ke tulisan `DataTampil` (di blok oranye paling atas), tarik `get DataTampil`.
+     - Lubang `item`: klik **Text**, tarik blok `join`. Tambahkan 3 `string` (lubang) lagi menggunakan ikon gir biru, sehingga total ada **5 lubang join**.
+       - Lubang 1: `select list item list` (`get item`), `index` angka **1** (Nama Barang).
+       - Lubang 2: teks pink berisi `" - Rp "` (beri spasi sebelum dan sesudah).
+       - Lubang 3: `select list item list` (`get item`), `index` angka **2** (Harga).
+       - Lubang 4: teks pink berisi `" (Prioritas: "` (beri spasi di awal).
+       - Lubang 5: `select list item list` (`get item`), `index` angka **3** (Prioritas). Jangan lupa tambahkan satu lubang join lagi untuk teks pink `")"`.
+5. **Menampilkan ke Layar:**
+   - Di posisi **paling bawah** (di dalam blok kuning Initialize, tapi **di luar** semua blok cokelat for each), klik `List_TampilBarang`, tarik blok hijau muda `set List_TampilBarang.Elements to`.
+   - Pasangkan dengan `get DataTampil` (ambil dari variabel local di atas).
+
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda di MIT App Inventor.

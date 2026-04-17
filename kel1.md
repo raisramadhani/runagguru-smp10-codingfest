@@ -219,50 +219,69 @@ Pindah ke **Blocks**. Ikuti pola yang sama seperti Pemasukan.
 
 ## TAHAP 6: Desain & Blocks - ProgresTabungan
 
-Ganti screen aktif ke **ProgresTabungan**. Ini adalah tahap akhir untuk melihat rangkuman saldo dan membuat target.
+Ganti screen aktif ke **ProgresTabungan**. Ini adalah tahap akhir untuk melihat rangkuman saldo dan membuat target impian.
 
 ### A. Desain (Designer)
 
-1. **Paste Header:** Tekan **Ctrl + V** (Paste).
-2. **Saldo Otomatis:** Tarik **Label**. Ubah Text: `Saldo Saat Ini: Rp 0`. Perbesar font dan centang FontBold. Rename: `Teks_SaldoOtomatis`.
-3. **Wadah Input Target:** Dari panel Layout, tarik **VerticalArrangement**. Rename: `Wadah_Input`. Di dalamnya tarik 3 **TextBox**:
-   - TextBox 1 -> Hint: `Nama Barang`, Rename: `Input_NamaBarang`.
-   - TextBox 2 -> Hint: `Nominal Target`, Centang _NumbersOnly_, Rename: `Input_NominalTarget`.
-   - TextBox 3 -> Hint: `Tanggal Target`, Rename: `Input_TanggalTarget`.
-   - Tambahkan **Button** -> Text: `Simpan Target`. Rename: `Tombol_SimpanTarget`.
-4. **Wadah Info Target:** Tarik **VerticalArrangement** baru ke bawah layar. Rename: `Wadah_Info`. **PENTING:** Hilangkan centang **Visible** di Properties.
-   - Di dalamnya tarik 3 **Label** berurutan. Rename: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
-   - Tambahkan **Button** -> Text: `Hapus & Buat Baru Target`. Rename: `Tombol_HapusTarget`.
-5. **Alat Tambahan:** Tarik **TinyDB** (Rename: `Database_Utama`) dan **Notifier** (Rename: `Pesan_Notif`).
+1. **Paste Header:** Tekan **Ctrl + V** (Paste) di keyboard agar Header dan Logo kembali muncul di atas layar.
+2. **Saldo Otomatis:** Tarik **Label**. Ubah Text menjadi: `Saldo Saat Ini: Rp 0`. Perbesar ukuran font dan centang FontBold. Rename Component menjadi: `Teks_SaldoOtomatis`.
+3. **Wadah Input Target:** Dari panel **Layout**, tarik **VerticalArrangement**. Rename Component menjadi: `Wadah_Input`. Di dalam kotak ini, tarik 3 **TextBox** dan 1 **Button**:
+   - TextBox 1 -> Hint: `Nama Barang`, Rename Component: `Input_NamaBarang`.
+   - TextBox 2 -> Hint: `Nominal Target`, Centang _NumbersOnly_, Rename Component: `Input_NominalTarget`.
+   - TextBox 3 -> Hint: `Tanggal Target`, Rename Component: `Input_TanggalTarget`.
+   - Button -> Text: `Simpan Target`. Rename Component: `Tombol_SimpanTarget`.
+4. **Wadah Info Target:** Tarik **VerticalArrangement** baru ke bawah layar. Rename Component menjadi: `Wadah_Info`.
+   - **PENTING:** Di panel Properties `Wadah_Info`, hilangkan centang **Visible** (agar disembunyikan saat pertama dibuka).
+   - Di dalam kotak ini, tarik 3 **Label** berurutan ke bawah. Rename Component masing-masing menjadi: `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal`.
+   - Tarik 1 **Button** ke dalam wadah ini. Ubah Text: `Hapus & Buat Baru Target`. Rename Component: `Tombol_HapusTarget`.
+5. **Alat Tambahan:** Tarik **TinyDB** (Rename Component: `Database_Utama`) dan **Notifier** (Rename Component: `Pesan_Notif`).
 
 ### B. Kode (Blocks)
 
-Pindah ke **Blocks**.
+Pindah ke tampilan **Blocks**.
 
-**1. Saat Layar Dibuka (Menghitung Saldo & Cek Target):**
+**Bagian 1: Saat Layar Dibuka (Menghitung Saldo & Cek Target)**
 
-- Tarik blok kuning `when ProgresTabungan.Initialize do`.
-- **Hitung Saldo:** Klik `Teks_SaldoOtomatis`, tarik `set Teks_SaldoOtomatis.Text to`.
-  - Pasangkan blok `join`. Lubang 1 isi teks pink `"Saldo Saat Ini: Rp "`.
-  - Lubang 2 pasangkan blok kurang `-` (dari Math).
-  - Kiri blok `-`: `GetValue` tag `"TotalPemasukan"` (default 0). Kanan blok `-`: `GetValue` tag `"TotalPengeluaran"` (default 0).
-- **Cek Target:** Di bawahnya (masih dalam Initialize), pasang blok `if then else`.
-  - Bagian `if`: blok logika `=`. Kiri: `GetValue` tag `"Target_Nama"` (default teks kosong `" "`). Kanan: teks pink kosong `" "`.
-  - Bagian `then`: set `Wadah_Input.Visible` ke `true`, set `Wadah_Info.Visible` ke `false`.
-  - Bagian `else`: set `Wadah_Input.Visible` ke `false`, set `Wadah_Info.Visible` ke `true`. Lalu set teks `Teks_InfoNama`, `Teks_InfoNominal`, `Teks_InfoTanggal` dengan `GetValue` tag masing-masing.
+1. Di panel kiri, klik `ProgresTabungan` (ikon layar paling atas). Tarik blok kuning: `when ProgresTabungan.Initialize do`.
+2. **Hitung Saldo:** - Klik `Teks_SaldoOtomatis` di panel kiri, tarik blok hijau muda: `set Teks_SaldoOtomatis.Text to` dan masukkan ke dalam blok kuning tadi.
+   - Klik kategori **Text** (warna pink), tarik blok `join` dan pasangkan ke sebelah kanan blok hijau tadi.
+   - Di lubang pertama blok `join`: klik kategori **Text**, tarik blok teks pink kosong `" "`, lalu ketik di dalamnya: `Saldo Saat Ini: Rp ` (pastikan ada spasi setelah huruf p).
+   - Di lubang kedua blok `join`: klik kategori **Math** (biru muda), tarik blok kurang `-`.
+   - Di sisi kiri blok `-`: klik `Database_Utama` di panel kiri, tarik blok ungu `call Database_Utama.GetValue`. Isi `tag`-nya dengan blok teks pink `" "` dan ketik: `TotalPemasukan`. Isi `valueIfTagNotThere` dengan angka `0` dari kategori **Math**.
+   - Di sisi kanan blok `-`: tarik lagi blok ungu `call Database_Utama.GetValue`. Isi `tag`-nya dengan blok teks pink `" "` dan ketik: `TotalPengeluaran`. Isi `valueIfTagNotThere` dengan angka `0` dari kategori **Math**.
+3. **Cek Kondisi Target:** - Klik kategori **Control** (warna cokelat), tarik blok `if then else` dan pasangkan di bawah blok hijau `set Saldo` (masih di dalam blok kuning Initialize).
+   - **Di bagian `if`:** Klik kategori **Logic** (hijau terang), tarik blok sama dengan `=`.
+     - Sisi kiri blok `=`: tarik blok ungu `call Database_Utama.GetValue`. Isi `tag`-nya dengan teks pink `"Target_Nama"`. Isi `valueIfTagNotThere` dengan teks pink kosong `" "`.
+     - Sisi kanan blok `=`: tarik blok teks pink kosong `" "` dari kategori **Text**. (Ini mengecek apakah memori nama target masih kosong).
+   - **Di bagian `then` (Jika belum ada target):** - Klik `Wadah_Input`, tarik blok hijau muda `set Wadah_Input.Visible to`. Pasangkan blok dari kategori **Logic** yaitu `true`.
+     - Klik `Wadah_Info`, tarik blok hijau muda `set Wadah_Info.Visible to`. Pasangkan blok dari kategori **Logic** yaitu `false`.
+   - **Di bagian `else` (Jika target sudah ada):** - Klik `Wadah_Input`, tarik blok hijau muda `set Wadah_Input.Visible to`. Pasangkan blok `false`.
+     - Klik `Wadah_Info`, tarik blok hijau muda `set Wadah_Info.Visible to`. Pasangkan blok `true`.
+     - _(Menampilkan data target dari database)_: Klik `Teks_InfoNama`, tarik `set Teks_InfoNama.Text to`. Pasangkan dengan blok ungu `call Database_Utama.GetValue`. Isi `tag`-nya dengan teks pink `"Target_Nama"`, dan `valueIfTagNotThere` dengan teks pink `" "`. Lakukan langkah yang sama persis untuk `Teks_InfoNominal` (tag: `"Target_Nominal"`) dan `Teks_InfoTanggal` (tag: `"Target_Tanggal"`).
 
-**2. Tombol Simpan Target:**
+**Bagian 2: Tombol Simpan Target**
 
-- Tarik blok kuning `when Tombol_SimpanTarget.Click do`.
-- Gunakan 3 blok `StoreValue` berturut-turut. Simpan `Input_NamaBarang.Text` ke tag `"Target_Nama"`. Simpan `Input_NominalTarget.Text` ke tag `"Target_Nominal"`. Simpan `Input_TanggalTarget.Text` ke tag `"Target_Tanggal"`.
-- Panggil notifikasi `"Target Berhasil Dibuat!"`.
-- Set `Wadah_Input.Visible` ke `false` dan `Wadah_Info.Visible` ke `true`. (Jangan lupa update teks label infonya dengan input yang baru).
+1. Di panel kiri, klik `Tombol_SimpanTarget`, tarik blok kuning `when Tombol_SimpanTarget.Click do`.
+2. Klik `Database_Utama`, tarik blok ungu `call Database_Utama.StoreValue`. Pasangkan ke dalam blok kuning. Ulangi sampai ada **3 blok ungu StoreValue** tersusun ke bawah.
+   - Blok ungu ke-1: Isi `tag` dengan teks pink `"Target_Nama"`. Isi `valueToStore` dengan klik `Input_NamaBarang`, lalu tarik blok hijau tua `Input_NamaBarang.Text`.
+   - Blok ungu ke-2: Isi `tag` dengan teks pink `"Target_Nominal"`. Isi `valueToStore` dengan blok hijau tua `Input_NominalTarget.Text`.
+   - Blok ungu ke-3: Isi `tag` dengan teks pink `"Target_Tanggal"`. Isi `valueToStore` dengan blok hijau tua `Input_TanggalTarget.Text`.
+3. **Notifikasi:** Klik `Pesan_Notif`, tarik blok ungu `call Pesan_Notif.ShowAlert notice`. Pasang di bawah susunan tadi. Isi `notice`-nya dengan teks pink `"Target Berhasil Dibuat!"`.
+4. **Ganti Tampilan:**
+   - Klik `Wadah_Input`, tarik `set Wadah_Input.Visible to` dan isi dengan blok logika `false`.
+   - Klik `Wadah_Info`, tarik `set Wadah_Info.Visible to` dan isi dengan blok logika `true`.
+5. **Update Teks di Layar:**
+   - Klik `Teks_InfoNama`, tarik `set Teks_InfoNama.Text to`, lalu pasangkan dengan blok hijau tua `Input_NamaBarang.Text`. Lakukan hal yang sama untuk `Teks_InfoNominal` (ambil dari `Input_NominalTarget.Text`) dan `Teks_InfoTanggal` (ambil dari `Input_TanggalTarget.Text`).
 
-**3. Tombol Hapus Target:**
+**Bagian 3: Tombol Hapus Target**
 
-- Tarik blok kuning `when Tombol_HapusTarget.Click do`.
-- Gunakan `StoreValue`, isi tag `"Target_Nama"` dengan teks pink kosong `" "`.
-- Set `Wadah_Input.Visible` ke `true` dan `Wadah_Info.Visible` ke `false`.
+1. Di panel kiri, klik `Tombol_HapusTarget`, tarik blok kuning `when Tombol_HapusTarget.Click do`.
+2. Klik `Database_Utama`, tarik blok ungu `call Database_Utama.StoreValue`.
+   - Isi `tag` dengan teks pink `"Target_Nama"`.
+   - Isi `valueToStore` dengan blok teks pink kosong `" "`. (Ini berfungsi menghapus data di memori sehingga dianggap kosong).
+3. **Balikkan Tampilan Layar:**
+   - Klik `Wadah_Input`, tarik `set Wadah_Input.Visible to` dan isi dengan blok logika `true`.
+   - Klik `Wadah_Info`, tarik `set Wadah_Info.Visible to` dan isi dengan blok logika `false`.
 
 ---
 
