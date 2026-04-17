@@ -231,7 +231,9 @@ Pindah ke tampilan **Blocks**. _(Blok kembali via Logo sudah ada otomatis)._
 
 ---
 
-## TAHAP 6: Membuat Screen Fitur Bonus & Update Menu
+## BONUS
+
+## TAHAP 6: Membuat Screen Fitur Barang Prioritas & Update Menu
 
 Kita perlu membuat 2 Screen baru untuk fitur bonus ini, dan menambahkan satu tombol akses di Halaman Utama.
 
