@@ -345,6 +345,69 @@ Pindah ke tampilan **Blocks**. Kita akan membuat logika pemilahan (sorting) yang
    - Di posisi **paling bawah** (di dalam blok kuning Initialize, tapi **di luar** semua blok cokelat for each), klik `List_TampilBarang`, tarik blok hijau muda `set List_TampilBarang.Elements to`.
    - Pasangkan dengan `get DataTampil` (ambil dari variabel local di atas).
 
+## TAHAP 9: Desain & Blocks - HalamanProfil
+
+Kita akan membuat satu Screen terakhir untuk mengatur profil pengguna (Nama dan Email) agar aplikasi terasa lebih personal.
+
+### A. Persiapan & Update Menu
+
+1. Di bagian atas layar, klik tombol **Add Screen**.
+2. Ketik nama: `HalamanProfil` lalu klik OK.
+3. **Update HalamanUtama:**
+   - Kembali ke screen `HalamanUtama`.
+   - Tarik 1 **Button** baru ke posisi paling bawah.
+   - Ubah **Text** di Properties menjadi: `Edit Profil`.
+   - Klik **Rename Component** menjadi: `Tombol_MenuProfil`.
+   - Di tampilan **Blocks**, tambahkan logika: `when Tombol_MenuProfil.Click do` -> `open another screen screenName` isi dengan `"HalamanProfil"`.
+
+---
+
+### B. Desain (Designer)
+
+Ganti screen aktif ke **HalamanProfil**.
+
+1. **Paste Header:**
+   - Tekan tombol **Ctrl + V** di keyboard Anda agar Header dan Logo muncul di posisi paling atas.
+2. **Identitas Saat Ini:**
+   - Tarik **Label**, Rename: `Teks_NamaSekarang`, Text: `Nama: (Belum diatur)`.
+   - Tarik **Label**, Rename: `Teks_EmailSekarang`, Text: `Email: (Belum diatur)`.
+3. **Form Perubahan Data:**
+   - Tarik **TextBox**, Rename: `Input_NamaBaru`, Hint: `Masukkan Nama Lengkap`.
+   - Tarik **TextBox**, Rename: `Input_EmailBaru`, Hint: `Masukkan Alamat Email`.
+4. **Tombol Aksi:**
+   - Tarik **Button**, Rename: `Tombol_SimpanProfil`, Text: `Simpan Perubahan`.
+5. **Komponen Non-Visual:**
+   - Tarik **TinyDB** (Rename: `Database_Aplikasi`) dan **Notifier** (Rename: `Notifikasi_Pesan`).
+
+---
+
+### C. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**.
+
+**1. Memuat Data Saat Layar Dibuka:**
+
+- Tarik blok `when HalamanProfil.Initialize do`.
+- Di dalam blok tersebut, tarik `set Teks_NamaSekarang.Text to`. Pasangkan dengan blok `join`.
+  - Lubang 1: Teks `"Nama: "`.
+  - Lubang 2: `call Database_Aplikasi.GetValue`, tag: `"User_Nama"`, valueIfTagNotThere: `"User"`.
+- Tarik `set Teks_EmailSekarang.Text to`. Pasangkan dengan blok `join`.
+  - Lubang 1: Teks `"Email: "`.
+  - Lubang 2: `call Database_Aplikasi.GetValue`, tag: `"User_Email"`, valueIfTagNotThere: `"belum@diatur.com"`.
+
+**2. Logika Tombol Simpan:**
+
+- Tarik blok `when Tombol_SimpanProfil.Click do`.
+- Masukkan blok `call Database_Aplikasi.StoreValue`. Isi tag: `"User_Nama"`, valueToStore: `Input_NamaBaru.Text`.
+- Masukkan blok `call Database_Aplikasi.StoreValue`. Isi tag: `"User_Email"`, valueToStore: `Input_EmailBaru.Text`.
+- **Memperbarui Tampilan Secara Langsung:**
+  - Tarik `set Teks_NamaSekarang.Text to`. Pasangkan dengan `join` antara teks `"Nama: "` dan `Input_NamaBaru.Text`.
+  - Tarik `set Teks_EmailSekarang.Text to`. Pasangkan dengan `join` antara teks `"Email: "` dan `Input_EmailBaru.Text`.
+- **Notifikasi & Reset:**
+  - Tarik `call Notifikasi_Pesan.ShowAlert notice`, isi dengan teks `"Profil Berhasil Diperbarui!"`.
+  - Tarik `set Input_NamaBaru.Text to`, isi dengan teks kosong.
+  - Tarik `set Input_EmailBaru.Text to`, isi dengan teks kosong.
+
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda di MIT App Inventor.
