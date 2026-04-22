@@ -423,6 +423,83 @@ Pindah ke tampilan **Blocks**.
   - Tarik `set Input_NamaBaru.Text to`, isi dengan teks kosong.
   - Tarik `set Input_EmailBaru.Text to`, isi dengan teks kosong.
 
+---
+
+## TAHAP 10: Desain & Blocks - Progress Tabungan di Halaman Utama
+
+Agar pengguna termotivasi, kita akan menampilkan _Linear Progress Bar_ di **HalamanUtama** yang menunjukkan seberapa dekat mereka dengan target impiannya berdasarkan total uang yang sudah terkumpul (Saldo).
+
+Pastikan saat ini Anda berada di screen **HalamanUtama**.
+
+### A. Desain (Designer)
+
+1. **Membuat Wadah Progress:**
+   - Dari panel **Palette** > **Layout**, tarik **VerticalArrangement** ke bawah Header/Logo Anda (di atas tombol-tombol menu).
+   - Di panel **Properties**, ubah **Width** menjadi `Fill parent`.
+   - Klik **Rename Component** menjadi: `Wadah_Progress`.
+2. **Membuat Judul Progress:**
+   - Dari **Palette** > **User Interface**, tarik **Label** dan masukkan ke dalam `Wadah_Progress`.
+   - Ubah **Text** menjadi: `Progress Target Impian:`. Centang **FontBold**.
+   - Klik **Rename Component** menjadi: `Teks_JudulProgress`.
+3. **Membuat Linear Progress Bar (Menggunakan Slider):**
+   - Dari **Palette** > **User Interface**, tarik komponen **Slider** dan letakkan di bawah teks judul tadi.
+   - Di panel **Properties**, lakukan pengaturan wajib ini:
+     - **Width**: `Fill parent`.
+     - **MinValue**: `0`.
+     - **MaxValue**: `100` (Ini akan kita ubah otomatis lewat Blocks nanti).
+     - **ThumbEnabled**: **HILANGKAN CENTANGNYA** (Penting! Agar slider tidak bisa digeser manual oleh pengguna dan murni berfungsi sebagai bar progress).
+   - Klik **Rename Component** menjadi: `Bar_Progress`.
+4. **Membuat Info Angka:**
+   - Tarik **Label** lagi ke bawah Slider.
+   - Ubah **Text** menjadi: `Terkumpul: Rp 0 / Rp 0`.
+   - Klik **Rename Component** menjadi: `Teks_InfoProgress`.
+5. **Database:**
+   - Dari **Palette** > **Storage**, tarik **TinyDB** ke layar.
+   - Klik **Rename Component** menjadi: `Database_Aplikasi`.
+
+---
+
+### B. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**. Kita akan membuat logika agar setiap kali Halaman Utama dibuka, aplikasi akan menghitung Saldo (Pemasukan dikurangi Pengeluaran) lalu membandingkannya dengan Nominal Target untuk menggerakkan Progress Bar.
+
+**1. Logika Saat Halaman Dibuka:**
+
+- Klik layar `HalamanUtama` di panel kiri, tarik blok kuning `when HalamanUtama.Initialize do`.
+
+**2. Mengecek Apakah Target Sudah Dibuat:**
+
+- Dari kategori **Control** (warna cokelat), tarik blok `if then else` dan pasangkan ke dalam blok kuning tadi.
+- Di bagian `if`: klik kategori **Logic** (hijau terang), tarik blok tidak sama dengan `≠` (ikon sama dengan dicoret).
+  - Sisi kiri blok `≠`: klik `Database_Aplikasi`, tarik blok ungu `call Database_Aplikasi.GetValue`. Isi `tag` dengan teks pink `"Target_Nominal"`. Isi `valueIfTagNotThere` dengan teks pink kosong `" "`.
+  - Sisi kanan blok `≠`: klik kategori **Text**, tarik teks pink kosong `" "`.
+    _(Logika ini mengecek: Jika nominal target tidak kosong, maka tampilkan progress)._
+
+**3. Menjalankan Progress Bar Jika Target Ada (Bagian `then`):**
+
+- **Tampilkan Wadah:** Klik `Wadah_Progress`, tarik blok hijau muda `set Wadah_Progress.Visible to` dan pasangkan blok logika `true`.
+- **Atur Batas Maksimal Progress:** Klik `Bar_Progress`, tarik blok hijau muda `set Bar_Progress.MaxValue to`. Pasangkan dengan blok ungu `call Database_Aplikasi.GetValue`, isi tag dengan `"Target_Nominal"`, dan default `0`.
+- **Atur Posisi Progress (Berdasarkan Saldo):** - Klik `Bar_Progress`, tarik blok hijau muda `set Bar_Progress.ThumbPosition to`.
+  - Pasangkan dengan blok kurang `-` dari kategori **Math**.
+  - Di lubang kiri blok `-`: tarik `GetValue` dari database, isi tag `"TotalPemasukan"`, default `0`.
+  - Di lubang kanan blok `-`: tarik `GetValue` dari database, isi tag `"TotalPengeluaran"`, default `0`.
+- **Update Teks Info:**
+  - Klik `Teks_InfoProgress`, tarik blok hijau muda `set Teks_InfoProgress.Text to`.
+  - Pasangkan dengan blok `join` dari kategori **Text**. Tambahkan lubang di blok `join` menggunakan gir biru sehingga memiliki **4 lubang**.
+  - Lubang 1: Teks pink `"Terkumpul: Rp "`.
+  - Lubang 2: Tarik blok Math `-` (seperti cara di atas, Pemasukan dikurangi Pengeluaran).
+  - Lubang 3: Teks pink `" / Rp "`.
+  - Lubang 4: Blok ungu `GetValue` dengan tag `"Target_Nominal"`.
+
+**4. Menyembunyikan Progress Jika Target Belum Ada (Bagian `else`):**
+
+- Klik `Wadah_Progress`, tarik blok hijau muda `set Wadah_Progress.Visible to`.
+- Pasangkan dengan blok logika `false` dari kategori **Logic**.
+
+> **PENTING:** Coba jalankan aplikasi. Isi target di menu Target Impian, lalu catat pemasukan. Saat Anda kembali ke Halaman Utama, bar progress akan otomatis terisi sesuai perbandingan uang yang Anda miliki dengan target yang ingin dicapai!
+
+---
+
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda di MIT App Inventor.

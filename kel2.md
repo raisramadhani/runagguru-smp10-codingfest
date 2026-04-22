@@ -201,6 +201,86 @@ Pindah ke tampilan **Blocks**. Layar ini akan otomatis memanggil data dari TinyD
 
 ---
 
+## TAHAP 5: Desain & Blocks - TransferTabungan (Tarik Saldo)
+
+Kita perlu membuat 1 Screen baru untuk fitur Transfer ini, dan menambahkan satu tombol akses di Halaman Utama.
+
+### A. Persiapan & Update Menu Halaman Utama
+
+1. Di bagian atas layar, klik tombol **Add Screen**.
+2. Ketik nama: `TransferTabungan` lalu klik OK.
+3. **Update HalamanUtama:** - Kembali ke screen `HalamanUtama` sebentar.
+   - Tambahkan 1 komponen gambar/tombol baru untuk menu transfer.
+   - Klik **Rename Component** menjadi: `Tombol_Transfer`.
+   - Di panel **Properties**, centang kotak **Clickable**.
+   - Beralih ke tampilan **Blocks**. Buat logika seperti tombol menu lainnya: tarik blok kuning `when Tombol_Transfer.Click do` -> pasangkan dengan blok cokelat `open another screen screenName` dan isi dengan teks pink `"TransferTabungan"`.
+
+> **PENTING:** Silakan coba Run program. Pastikan tombol menu baru ini berhasil memindahkan Anda ke layar TransferTabungan tanpa error.
+
+---
+
+### B. Desain (Designer) - TransferTabungan
+
+Ganti screen aktif ke **TransferTabungan**. Di sini kita akan membuat form untuk mentransfer uang keluar yang otomatis akan memotong saldo total Anda.
+
+1. **Input Rekening Tujuan:**
+   - Dari panel **Palette** > **User Interface**, tarik komponen **TextBox** ke layar.
+   - Di **Properties**, centang kotak **NumbersOnly**.
+   - Ubah **Hint** menjadi: `Masukkan Rekening Tujuan`.
+   - Klik **Rename Component**, ubah menjadi: `Input_Rekening`.
+2. **Input Nominal Transfer:**
+   - Tarik komponen **TextBox** kedua ke bawahnya.
+   - Di **Properties**, centang kotak **NumbersOnly**.
+   - Ubah **Hint** menjadi: `Nominal Transfer (contoh: 20000)`.
+   - Klik **Rename Component**, ubah menjadi: `Input_NominalTransfer`.
+3. **Tombol Aksi:**
+   - Dari **Palette**, tarik komponen **Button**.
+   - Di **Properties**, ubah **Text** menjadi: `Kirim Transfer`.
+   - Klik **Rename Component**, ubah menjadi: `Tombol_KirimTransfer`.
+4. **Alat Tambahan (Database & Notifikasi):**
+   - Dari kategori **Storage**, tarik **TinyDB** (Rename Component: `Database_Tabungan`).
+   - Dari kategori **User Interface**, tarik **Notifier** (Rename Component: `Notifikasi_Pesan`).
+
+---
+
+### C. Kode (Blocks) - TransferTabungan
+
+Pindah ke tampilan **Blocks**. Logikanya mirip dengan menambah tabungan, namun di sini kita menggunakan operasi hitung kurang ( - ) untuk memotong saldo.
+
+**1. Menyiapkan Variabel Sementara**
+
+- Di kategori **Variables** (oranye tua), tarik blok `initialize global name to`. Ganti tulisan `name` jadi `RiwayatSementara`.
+- Isi pasangannya dengan blok biru muda dari kategori **Lists** yaitu: `create empty list`.
+
+**2. Logika Tombol Kirim Transfer**
+
+- Di panel kiri, klik `Tombol_KirimTransfer`, tarik blok kuning `when Tombol_KirimTransfer.Click do`.
+- **Memotong Total Uang:**
+  - Klik `Database_Tabungan`, tarik blok ungu `call Database_Tabungan.StoreValue`. Masukkan ke dalam blok kuning.
+  - Di lubang `tag`, pasangkan teks pink `" "` dan ketik: `TotalUang`.
+  - Di lubang `valueToStore`, kita akan mengurangi saldo. Klik kategori **Math** (biru muda), tarik blok kurang `-`.
+  - Di sisi kiri blok `-`: klik `Database_Tabungan`, tarik blok ungu `call Database_Tabungan.GetValue`. Isi `tag`-nya dengan teks pink `"TotalUang"`. Isi `valueIfTagNotThere` dengan angka `0`.
+  - Di sisi kanan blok `-`: klik `Input_NominalTransfer` di panel kiri, tarik blok hijau tua `Input_NominalTransfer.Text`. _(Ini artinya Saldo Total = Saldo Total saat ini dikurangi Nominal Transfer)._
+- **Mencatat Riwayat Transfer:**
+  - Klik kategori **Variables**, tarik blok `set to` dan pilih `global RiwayatSementara`. Pasangkan di bawah susunan StoreValue tadi.
+  - Pasangkan blok ini dengan blok ungu `call Database_Tabungan.GetValue`. Isi `tag`-nya dengan teks pink `"DataRiwayat"` dan `valueIfTagNotThere` dengan blok biru muda `create empty list`.
+  - Klik kategori **Lists**, tarik blok biru muda `add items to list`. Pasangkan di bawah blok set global tadi.
+  - Di lubang `list` (atas): tarik blok merah `get global RiwayatSementara` dari kategori Variables.
+  - Di lubang `item` (bawah): tarik blok pink `join`. Klik ikon gir birunya, tambahkan `string` sehingga total ada **4 lubang**.
+    - Lubang 1: Teks pink `"Transfer ke Rek: "` (beri spasi di akhir).
+    - Lubang 2: Blok hijau tua `Input_Rekening.Text`.
+    - Lubang 3: Teks pink `" - Rp "` (beri spasi di awal dan akhir).
+    - Lubang 4: Blok hijau tua `Input_NominalTransfer.Text`.
+  - Menyimpan kembali riwayat ke database: Tarik blok ungu `call Database_Tabungan.StoreValue`. Isi `tag` dengan teks pink `"DataRiwayat"`. Isi `valueToStore` dengan blok merah `get global RiwayatSementara`.
+- **Notifikasi & Reset Form:**
+  - Klik `Notifikasi_Pesan`, tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`. Isi dengan teks pink `"Transfer Berhasil! Saldo telah dipotong."`.
+  - Klik `Input_Rekening`, tarik blok hijau muda `set Input_Rekening.Text to`, pasangkan teks pink kosong `" "`.
+  - Klik `Input_NominalTransfer`, tarik blok hijau muda `set Input_NominalTransfer.Text to`, pasangkan teks pink kosong `" "`.
+
+> **PENTING:** Coba jalankan aplikasi. Masukkan rekening dan nominal transfer, lalu klik Kirim. Setelah muncul notifikasi, kembali ke layar **TotalTabungan** dan pastikan saldo Anda sudah berkurang serta riwayat transfer muncul!
+
+---
+
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda di MIT App Inventor.
