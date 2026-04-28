@@ -353,6 +353,50 @@ Pindah ke tampilan **Blocks**. Ini adalah bagian yang butuh ketelitian tinggi. I
 - Pasangkan blok hijau ini di posisi **paling bawah** (masih di dalam blok kuning Initialize, tapi **di luar / di bawah** semua blok cokelat perulangan `for each`).
 - Pasangkan blok ini dengan arahkan kursor ke tulisan `DataTampil` (di bagian paling atas), lalu tarik blok merah `get DataTampil`.
 
+# Laporan Perbaikan Bug - MIT App Inventor (Kelompok 4)
+
+Berdasarkan pengecekan silang antara dokumen modul dan susunan _blocks_ yang dikerjakan siswa, panduan dasar sudah disusun dengan sangat tepat. Masalah (_Runtime Error_) murni terjadi karena ketidaktelitian siswa saat menarik dan memilih variabel pada layar kerja mereka.
+
+Berikut adalah detail perbaikan yang perlu dilakukan siswa agar aplikasi berjalan normal tanpa perlu merubah rancangan fitur aslinya.
+
+---
+
+## 1. Perbaikan _Runtime Error_ (Layar `DaftarBarang`)
+
+**Gejala:** Muncul notifikasi error: _"Select list item: Attempt to get item number 1 of a list of length 0: []"_ dan antrean prioritas barang tidak muncul di layar.
+
+**Akar Masalah:** Pada susunan `when DaftarBarang.Initialize`, tepatnya di dalam blok `then` -> susunan blok `join`, siswa salah memasukkan blok variabel merah. Siswa memasang blok **`get DataTampil`** (list yang statusnya masih kosong di awal), padahal program seharusnya diinstruksikan untuk mengambil **`get item`** (yang merupakan data barang hasil perulangan/looping dari database).
+
+**Langkah Perbaikan (Sesuai Tahap 8 v2, bagian B.4):**
+Minta siswa untuk fokus pada blok `join` yang memiliki 6 lubang, dan perbaiki 3 bagian ini:
+
+- **Lubang 1:** Ubah blok `list` dari `get DataTampil` menjadi blok merah **`get item`** (Index 1).
+- **Lubang 3:** Ubah blok `list` dari `get DataTampil` menjadi blok merah **`get item`** (Index 2).
+- **Lubang 5:** Ubah blok `list` dari `get DataTampil` menjadi blok merah **`get item`** (Index 3).
+
+---
+
+## 2. _Clean Code_ / Penghapusan Blok Ganda (Layar Input)
+
+**Gejala:**
+Aplikasi tidak _crash_ atau _error_, namun terjadi inefisiensi yang menyalahi prinsip penulisan kode yang bersih (_clean code_).
+
+**Akar Masalah:**
+Pada susunan logika `when Tombol_Simpan.Click`, terdapat dua blok ungu **`call Database_Aplikasi.StoreValue`** yang diletakkan berurutan dari atas ke bawah dengan isi yang duplikat/persis sama.
+
+**Langkah Perbaikan:**
+Arahkan siswa untuk menghapus salah satu blok `StoreValue` yang menumpuk tersebut. Hal ini penting untuk mencegah aplikasi melakukan pemrosesan dan penyimpanan data ganda secara bersamaan ke dalam database.
+
+---
+
+## 3. Peringatan Konsistensi Nama Screen
+
+**Akar Masalah:**
+Pada dokumen modul tertulis instruksi pembuatan layar dengan nama **`InputBarang`**. Namun, merujuk pada panel kiri atas di _screenshot_ siswa, mereka menamainya dengan **`BarangPrioritas`**.
+
+**Langkah Perbaikan:**
+Hal ini tidak menjadi masalah selama konsisten. Pastikan saja saat siswa menyusun logika navigasi (tombol pindah layar) di `HalamanUtama`, blok teks pink pemanggil nama layarnya disesuaikan dengan apa yang mereka ketik, yaitu menggunakan teks `"BarangPrioritas"` dan bukan `"InputBarang"`, agar perpindahan halaman tidak gagal.
+
 ## TAHAP 9: Desain & Blocks - HalamanProfil
 
 Kita akan membuat satu Screen terakhir untuk mengatur profil pengguna (Nama dan Email) agar aplikasi terasa lebih personal.
