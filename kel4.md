@@ -537,6 +537,46 @@ Pindah ke tampilan **Blocks**. Kita akan membuat logika agar setiap kali Halaman
 
 ---
 
+## TAHAP 11: Fitur Hapus Semua Daftar Barang (Global Reset)
+
+Fitur ini berfungsi untuk menghapus seluruh data barang yang tersimpan di database secara permanen. Kita akan meletakkan tombol ini di halaman **DaftarBarang** agar pengguna bisa langsung melihat daftar menjadi kosong setelah dihapus.
+
+### A. Desain (Designer)
+
+1. Pastikan Anda berada di screen **DaftarBarang**.
+2. Dari panel **Palette** > **User Interface**, tarik komponen **Button** ke layar.
+3. Letakkan tombol ini di posisi paling bawah (di bawah ListView).
+4. Klik **Rename Component** menjadi: `Tombol_HapusSemua`.
+5. Di panel **Properties**, ubah **Text** menjadi: `Hapus Semua Daftar`.
+6. Tarik komponen **Notifier** (jika belum ada) dan Rename menjadi: `Notifikasi_Pesan`.
+
+---
+
+### B. Kode (Blocks)
+
+Pindah ke tampilan **Blocks**. Kita akan membuat logika yang mengosongkan tag `"DataBarang"` di TinyDB dan memperbarui tampilan daftar di layar secara seketika.
+
+**Logika Tombol Hapus Semua:**
+
+1. Klik `Tombol_HapusSemua` di panel kiri, tarik blok kuning `when Tombol_HapusSemua.Click do`.
+2. Di dalamnya, klik `Database_Aplikasi`, tarik blok ungu `call Database_Aplikasi.StoreValue`.
+   - Isi `tag` dengan teks pink `"DataBarang"`.
+   - Isi `valueToStore` dengan blok biru muda `create empty list` dari kategori **Lists**.
+     _(Ini akan menimpa data lama dengan daftar kosong)._
+3. **Memperbarui Tampilan:** Agar daftar di layar langsung hilang, klik `List_TampilBarang`, tarik blok hijau muda `set List_TampilBarang.Elements to`.
+   - Pasangkan dengan blok biru muda `create empty list` dari kategori **Lists**.
+4. **Memberi Notifikasi:** Klik `Notifikasi_Pesan`, tarik blok ungu `call Notifikasi_Pesan.ShowAlert notice`.
+   - Isi dengan teks pink `"Semua daftar barang telah dihapus!"`.
+
+---
+
+> **PENTING:** Setelah menambahkan fitur ini, silakan coba Run program.
+>
+> 1. Isi beberapa barang di halaman **InputBarang**.
+> 2. Lihat hasilnya di **DaftarBarang**.
+> 3. Tekan tombol **Hapus Semua Daftar**.
+> 4. Pastikan daftar di layar langsung kosong dan data di database benar-benar terhapus (coba tutup dan buka kembali aplikasinya).
+
 ## CATATAN AKHIR
 
 1. **Jangan lupa di save** project Anda di MIT App Inventor.
